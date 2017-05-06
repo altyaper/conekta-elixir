@@ -1,5 +1,9 @@
 /_build
+/ebin
 /deps
+/doc
 erl_crash.dump
 *.ez
-*.DS_Store
+mix.lock
+/.idea
+*.iml
