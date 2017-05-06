@@ -10,7 +10,7 @@ defmodule Conekta.Mixfile do
      version: "1.0.0",
      description: @description,
      name: "Conekta",
-     elixir: "~> 1.4.2",
+     elixir: "~> 1.2",
      package: package(),
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
