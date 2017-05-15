@@ -12,5 +12,14 @@ defmodule Conekta.Customers do
     end
   end
 
+  def create_customer(customer) do
+    Conekta.Client.post_request("customers", customer)
+    |> case do
+      {:ok, content} ->
+        body = Handler.handle_status_code(content)
+        {:ok, Poison.decode!(body, as: %Customer{})}
+      end
+  end
+
 
 end

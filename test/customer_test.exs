@@ -2,6 +2,7 @@ defmodule ConektaTest.CustomerTest do
   use ExUnit.Case
   import Mock
   alias Conekta.CustomersResponse
+  alias Conekta.Customer
 
   describe "Customers" do
 
@@ -18,6 +19,21 @@ defmodule ConektaTest.CustomerTest do
         assert actual == expected_customers
 
       end
+    end
+
+    test "should create a customer" do
+
+      expected_mock = Mocks.CustomersMock.get_new_customer_response()
+
+      with_mock Conekta.Client, [post_request: fn(_, _) -> expected_mock end] do
+
+          new_customer = %Customer{name: "Jorge Perez", email: "jorge@test.com"}
+          {:ok, created_customer} = Conekta.Customers.create_customer(new_customer)
+          assert new_customer.name == created_customer.name
+          assert new_customer.email == created_customer.email
+
+      end
+
     end
 
   end
