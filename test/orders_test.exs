@@ -1,55 +1,23 @@
-defmodule OrdersTest do
+defmodule ConektaTest.OrdersTest do
   use ExUnit.Case, async: false
-  use HTTPoison.Base
-  alias Conekta.Orders
-  alias Conekta.Order
-  alias Conekta.Customer
-  alias Conekta.Customers
-
-  setup_all do
-      System.put_env("CONEKTA_PASS", "")
-      :ok
-  end
+  import Mock
+  alias Conekta.OrdersResponse
 
   describe "Orders" do
 
-    @tag :skip
     test "should get orders" do
-      response = Orders.orders()
-      {code, _} = response
-      assert code == :ok
-    end
 
-    @tag :skip
-    test "should create an order" do
+      expected_mock = Mocks.OrdersMock.get_mock()
 
-      new_customer = %Customer{
-        name: "Jorge Chavez",
-        email: "test@conekta.com",
-        corporate: true,
-        payment_sources: [%{
-            token_id: "tok_test_visa_4242",
-            type: "card"
-        }]
-      }
+      with_mock Conekta.Client, [get_request: fn(_) -> expected_mock end] do
 
-      response_customer = Customers.create_customer(new_customer)
-      {_, content} = response_customer
+        actual = Conekta.Orders.orders()
+        {:ok, content} = expected_mock
+        expected_orders = {:ok, Poison.decode!(content.body, as: %OrdersResponse{})}
 
-      new_order = %Order{currency: "MXN",
-      customer_info: %{
-          customer_id: content.id
-      }, line_items: [%{
-          name: "Product 1",
-          unit_price: 35000,
-          quantity: 1
-      }], charges: [%{
-          payment_method: %{
-              type: "default"
-          }
-      }]}
+        assert actual == expected_orders
 
-      Conekta.Orders.create_order(new_order)
+      end
 
     end
 

@@ -1,4 +1,4 @@
-defmodule Conekta.OrderResponse do
+defmodule Conekta.OrdersResponse do
   defstruct has_more: nil, total: nil, object: nil, data: [%{
       livemode: nil, amount: nil, currency: nil, payment_status: nil, amount_refunded: nil, customer_info: %{
         email: nil, name: nil, corporate: nil, customer_id: nil, object: nil
