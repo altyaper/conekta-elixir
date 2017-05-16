@@ -2,6 +2,7 @@ defmodule Conekta.Customers do
   alias Conekta.Customer
   alias Conekta.CustomersResponse
   alias Conekta.Handler
+  alias Conekta.CustomerFindResponse
 
   def customers do
     Conekta.Client.get_request("customers")
@@ -18,6 +19,15 @@ defmodule Conekta.Customers do
       {:ok, content} ->
         body = Handler.handle_status_code(content)
         {:ok, Poison.decode!(body, as: %Customer{})}
+      end
+  end
+
+  def find(id) do
+    Conekta.Client.get_request("customers/" <> id)
+    |> case do
+      {:ok, content} ->
+        body = Handler.handle_status_code(content)
+        {:ok, Poison.decode!(body, as: %CustomerFindResponse{})}
       end
   end
 

@@ -12,16 +12,22 @@ defmodule Conekta.Client do
 
   def post_request(url, params) do
     post(url, encode_params(params))
+  end  
+
+  def encode_params(param) when is_map(param) do
+    param
+      |> Map.from_struct
+      |> Enum.reject(fn{_key, value} ->
+        case value do
+          nil -> true
+          [] -> true
+          [%{}] -> true
+          _ -> false
+        end
+      end)
   end
 
-  defp encode_params(params) do
-    #Remove null
-    r = Regex.replace(~r/\"([^\"]+)\":null(,?)/,  Poison.encode!(params), "")
-    #Remove []
-    f = Regex.replace(~r/\"([^\"]+)\":\[\](,?)/,  r, "")
-    #Remove [{}]
-    Regex.replace(~r/\"([^\"]+)\":\[\{\}\](,?)/,  f, "")    
-  end
+
 
 
 end

@@ -47,7 +47,7 @@ defmodule Mocks.CustomersMock do
       {"Vary", "Accept-Encoding"}],
       status_code: 200
     }
-  end
+  end  
 
 
 end

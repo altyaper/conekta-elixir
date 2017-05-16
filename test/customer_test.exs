@@ -3,6 +3,7 @@ defmodule ConektaTest.CustomerTest do
   import Mock
   alias Conekta.CustomersResponse
   alias Conekta.Customer
+  alias Conekta.CustomerFindResponse
 
   describe "Customers" do
 
@@ -35,6 +36,20 @@ defmodule ConektaTest.CustomerTest do
       end
 
     end
+
+    test "should find a customer" do
+
+      found_customer = %CustomerFindResponse{created_at: 1494884040, livemode: false, corporate: false, email: "jorge@test.com", id: "cus_2gXLaVPg9gLoxGeKs", name: "Jorge Perez", object: "customer"}
+      expected_mock = Mocks.CustomersMock.get_new_customer_response()
+
+      with_mock Conekta.Client, [get_request: fn(_) -> expected_mock end] do
+          {:ok, customer} = Conekta.Customers.find("cus_2gXHiqgGWMk8ski6t")
+          assert found_customer == customer
+      end
+
+    end
+
+
 
   end
 
