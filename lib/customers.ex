@@ -3,6 +3,7 @@ defmodule Conekta.Customers do
   alias Conekta.CustomersResponse
   alias Conekta.Handler
   alias Conekta.CustomerFindResponse
+  alias Conekta.CustomerDeleteResponse
 
   def customers do
     Conekta.Client.get_request("customers")
@@ -31,5 +32,13 @@ defmodule Conekta.Customers do
       end
   end
 
+  def delete(id) do
+    Conekta.Client.delete_request("customers/" <> id)
+    |> case do
+      {:ok, content} ->
+        body = Handler.handle_status_code(content)
+        {:ok, Poison.decode!(body, as: %CustomerDeleteResponse{})}
+      end
+  end
 
 end

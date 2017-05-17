@@ -12,7 +12,11 @@ defmodule Conekta.Client do
 
   def post_request(url, params) do
     post(url, encode_params(params))
-  end  
+  end
+
+  def delete_request(url) do
+    delete(url)
+  end
 
   def encode_params(param) when is_map(param) do
     param

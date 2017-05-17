@@ -4,6 +4,7 @@ defmodule ConektaTest.CustomerTest do
   alias Conekta.CustomersResponse
   alias Conekta.Customer
   alias Conekta.CustomerFindResponse
+  alias Conekta.CustomerDeleteResponse
 
   describe "Customers" do
 
@@ -49,7 +50,19 @@ defmodule ConektaTest.CustomerTest do
 
     end
 
+    test "should delete a customer" do
 
+      expected_mock = Mocks.CustomersMock.get_delete_customer_response()
+
+      deleted_customer = %CustomerDeleteResponse{id: "cus_2gXHiqgGWMk8ski6t", name: "Jorge Chavez", livemode: false, email: "jorge@test.com", phone: 521234567890}
+
+      with_mock Conekta.Client, [delete_request: fn(_) -> expected_mock end] do
+
+        assert = Conekta.Customers.delete("cus_2gXHiqgGWMk8ski6t") == deleted_customer
+
+      end
+
+    end
 
   end
 

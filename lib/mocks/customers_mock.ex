@@ -4,13 +4,9 @@ end
 
 defmodule Mocks.CustomersMock do
 
-  def get_mock do
-    {:ok, successful_response()}
-  end
-
-  def get_new_customer_response do
-    {:ok, successful_new_customer_response()}
-  end
+  def get_mock, do: {:ok, successful_response()}
+  def get_new_customer_response, do: {:ok, successful_new_customer_response()}
+  def get_delete_customer_response, do: {:ok, successful_delete_customer_response()}
 
   defp successful_response do
     %HTTPoison.Response{
@@ -47,7 +43,25 @@ defmodule Mocks.CustomersMock do
       {"Vary", "Accept-Encoding"}],
       status_code: 200
     }
-  end  
+  end
+
+  defp successful_delete_customer_response do
+    %HTTPoison.Response{
+      body: "{\"livemode\":false,\"name\":\"Jorge Chavez\",\"email\":\"jorge@test.com\",\"phone\":\"521234567890\",\"id\":\"cus_2gXHiqgGWMk8ski6t\",\"object\":\"customer\",\"created_at\":1494871026,\"corporate\":false,\"deleted\":true}",
+      headers: [{"Date", "Mon, 15 May 2017 21:34:00 GMT"},
+      {"Content-Type", "application/json; charset=utf-8"},
+      {"Content-Length", "155"}, {"Connection", "keep-alive"}, {"Server", "Apache"},
+      {"Cache-Control", "max-age=0, private, must-revalidate"},
+      {"Conekta-Media-Type", "conekta-v2.0.0; format=json"},
+      {"ETag", "\"6b4f608308600d626bb1f49574f32e79\""},
+      {"Strict-Transport-Security", "max-age=31536000; includeSubDomains"},
+      {"X-Content-Type-Options", "nosniff"}, {"X-Frame-Options", "SAMEORIGIN"},
+      {"X-Request-Id", "6361e720-3ca2-4a5b-95cd-589027efa165"},
+      {"X-Runtime", "0.271839"}, {"X-XSS-Protection", "1; mode=block"},
+      {"Vary", "Accept-Encoding"}],
+      status_code: 200
+    }
+  end
 
 
 end
