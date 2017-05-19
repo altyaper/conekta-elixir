@@ -1,6 +1,5 @@
 defmodule Conekta.Client do
   import Conekta.Wrapper
-  alias Conekta.Wrapper
 
   def get_request(url) do
     get(url)
@@ -18,7 +17,11 @@ defmodule Conekta.Client do
     delete(url)
   end
 
-  def encode_params(param) when is_map(param) do
+  def put_request(url, params) do
+    put(url, encode_params(params))
+  end
+
+  defp encode_params(param) when is_map(param) do
     param
       |> Map.from_struct
       |> Enum.reject(fn{_key, value} ->
@@ -29,9 +32,11 @@ defmodule Conekta.Client do
           _ -> false
         end
       end)
+      |> Enum.into(%{})
+      |> Poison.encode()
+      |> ok
   end
 
-
-
+  def ok({:ok, value}), do: value
 
 end

@@ -41,7 +41,7 @@ new_customer = %Customer{
 }
 
 #Create a new customer
-Conekta.Customers.create_customer(new_customer)
+Conekta.Customers.create(new_customer)
 
 ```
 

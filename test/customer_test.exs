@@ -25,12 +25,12 @@ defmodule ConektaTest.CustomerTest do
 
     test "should create a customer" do
 
+      new_customer = %Customer{name: "Jorge Perez", email: "jorge@test.com"}
       expected_mock = Mocks.CustomersMock.get_new_customer_response()
 
       with_mock Conekta.Client, [post_request: fn(_, _) -> expected_mock end] do
 
-          new_customer = %Customer{name: "Jorge Perez", email: "jorge@test.com"}
-          {:ok, created_customer} = Conekta.Customers.create_customer(new_customer)
+          {:ok, created_customer} = Conekta.Customers.create(new_customer)
           assert new_customer.name == created_customer.name
           assert new_customer.email == created_customer.email
 
@@ -53,12 +53,27 @@ defmodule ConektaTest.CustomerTest do
     test "should delete a customer" do
 
       expected_mock = Mocks.CustomersMock.get_delete_customer_response()
-
-      deleted_customer = %CustomerDeleteResponse{id: "cus_2gXHiqgGWMk8ski6t", name: "Jorge Chavez", livemode: false, email: "jorge@test.com", phone: 521234567890}
+      deleted_customer = %CustomerDeleteResponse{id: "cus_2gXHiqgGWMk8ski6t", name: "Jorge Chavez", livemode: false, email: "jorge@test.com", phone: "521234567890", object: "customer", corporate: false, created_at: 1494871026}
 
       with_mock Conekta.Client, [delete_request: fn(_) -> expected_mock end] do
 
-        assert = Conekta.Customers.delete("cus_2gXHiqgGWMk8ski6t") == deleted_customer
+        assert Conekta.Customers.delete("cus_2gXHiqgGWMk8ski6t") == {:ok, deleted_customer}
+
+      end
+
+    end
+
+    test "should update a customer" do
+
+      updated_customer = %Customer{name: "Juan Perez", email: "edited@test.com"}
+
+      expected_mock = Mocks.CustomersMock.get_update_customer_response()
+
+      with_mock Conekta.Client, [put_request: fn(_, _) -> expected_mock end] do
+
+        {:ok, customer}= Conekta.Customers.update("cus_2gYfQ9Pzfic158LXV", updated_customer)
+        assert updated_customer.name == customer.name
+        assert updated_customer.email == customer.email
 
       end
 

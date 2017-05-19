@@ -14,7 +14,7 @@ defmodule Conekta.Customers do
     end
   end
 
-  def create_customer(customer) do
+  def create(customer) do
     Conekta.Client.post_request("customers", customer)
     |> case do
       {:ok, content} ->
@@ -38,6 +38,15 @@ defmodule Conekta.Customers do
       {:ok, content} ->
         body = Handler.handle_status_code(content)
         {:ok, Poison.decode!(body, as: %CustomerDeleteResponse{})}
+      end
+  end
+
+  def update(id, customer) do
+    Conekta.Client.put_request("customers/" <> id, customer)
+    |> case do
+      {:ok, content} ->
+        body = Handler.handle_status_code(content)
+        {:ok, Poison.decode!(body, as: %CustomerUpdateResponse{})}
       end
   end
 

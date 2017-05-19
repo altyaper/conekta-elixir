@@ -4,12 +4,16 @@ defmodule Conekta.Handler do
 
   def handle_status_code(content) do
     case content.status_code do
-      401 ->        
-        ErrorHandler.catch_error(content)
       200 ->
         content.body
       500 ->
         ErrorHandler.raise_error(content)
+      401 ->
+        ErrorHandler.catch_error(content)
+      404 ->        
+        ErrorHandler.catch_error(content)
+      _ -> ErrorHandler.catch_error(content)
+
     end
   end
 
