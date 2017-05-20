@@ -1,4 +1,16 @@
 defmodule Conekta.Customers do
+
+   @moduledoc """
+      Functions for retrieving information about clients and for
+      managing clients too.
+
+      We can create, edit, find, delete and get all customers:
+          Conekta.Customers.customer() # get all customers
+          Conekta.Customers.find("cus_2gXuVHVD7n9ewPda4") # get a client by passing its ID
+      Endpoing: https://api.conekta.io/customers
+    """
+
+
   alias Conekta.Customer
   alias Conekta.CustomersResponse
   alias Conekta.Handler

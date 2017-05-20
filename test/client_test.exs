@@ -4,7 +4,7 @@ defmodule ConektaTest.ClientTest do
    describe "Client" do
 
     test "should encode flat params" do
-        customer = %Conekta.Customer{name: "Jorge", id: nil}
+        customer = %Conekta.Customer{name: "Jorge"}
         assert "{\"name\":\"Jorge\"}" == Conekta.Client.encode_params(customer)
     end
 
@@ -13,7 +13,7 @@ defmodule ConektaTest.ClientTest do
         customer = %Conekta.Customer{name: "Jorge", id: nil, payment_sources: [%{
             token: "token_2039989wei9229",
             type: "default"
-        }], shipping_contacts: []}
+        }]}
 
         expected = "{\"payment_sources\":[{\"type\":\"default\",\"token\":\"token_2039989wei9229\"}],\"name\":\"Jorge\"}"
         assert expected == Conekta.Client.encode_params(customer)
@@ -38,7 +38,7 @@ defmodule ConektaTest.ClientTest do
           }]
       }
 
-      expected = "{\"line_items\":[{\"unit_price\":35000,\"quantity\":1,\"name\":\"Testing\"}],\"customer_info\":{\"customer_id\":\"cus_2gXnQrxEpkdNfeeFT\"},\"currency\":\"MXN\",\"charges\":[{\"payment_method\":{\"type\":\"default\"}}]}"
+      {:ok, expected} = Poison.encode(new_order)
 
       assert expected == Conekta.Client.encode_params(new_order)
 

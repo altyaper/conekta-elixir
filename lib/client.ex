@@ -1,4 +1,5 @@
 defmodule Conekta.Client do
+  @moduledoc false
   import Conekta.Wrapper
 
   def get_request(url) do
@@ -10,9 +11,7 @@ defmodule Conekta.Client do
   end
 
   def post_request(url, params) do
-    r = encode_params(params)
-    IO.inspect(r)
-    post(url, r)
+    post(url, encode_params(params))
   end
 
   def delete_request(url) do
@@ -23,20 +22,15 @@ defmodule Conekta.Client do
     put(url, encode_params(params))
   end
 
-  def struct?(param) do
-    case Map.has_key?(param, :__struct__) do
-      true -> Map.from_struct(param)
-      false -> param
-    end
-  end
-
   def encode_params(param) when is_map(param) do
     param
-    |> struct?
-    |> Enum.filter(fn{_key, value} -> value end)
-     |> Enum.into(%{})
-     |> Poison.encode
-     |> ok
+    |> Map.from_struct
+    |> Enum.filter(fn{_key, value} ->
+        value
+     end)
+    |> Enum.into(%{})
+    |> Poison.encode
+    |> ok
   end
 
   def ok({:ok, value}), do: value
