@@ -21,6 +21,29 @@ defmodule ConektaTest.OrdersTest do
 
     end
 
+    test "should create an order" do
+
+        new_order = %Conekta.Order{
+            currency: "MXN",
+            customer_info: %{
+                customer_id: "cus_2gXnQrxEpkdNfeeFT"
+            },
+            line_items: [%{
+                name: "Testing",
+                unit_price: 35000,
+                quantity: 1
+            }],
+            charges: [%{
+                payment_method: %{
+                    type: "default"
+                }
+            }]
+        }
+
+#        Conekta.Orders.create(new_order)
+
+    end
+
   end
 
 

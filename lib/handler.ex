@@ -1,6 +1,5 @@
 defmodule Conekta.Handler do
   alias Conekta.ErrorHandler
-  alias Conekta.CustomerResponse
 
   def handle_status_code(content) do
     case content.status_code do
@@ -12,7 +11,10 @@ defmodule Conekta.Handler do
         ErrorHandler.catch_error(content)
       404 ->        
         ErrorHandler.catch_error(content)
-      _ -> ErrorHandler.catch_error(content)
+      422 ->
+        ErrorHandler.catch_error(content)
+      _ ->
+        ErrorHandler.catch_error(content)
 
     end
   end
