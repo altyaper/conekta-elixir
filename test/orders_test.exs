@@ -40,7 +40,7 @@ defmodule ConektaTest.OrdersTest do
             }]
         }
 
-#        Conekta.Orders.create(new_order)
+        Conekta.Orders.create(new_order)
 
     end
 

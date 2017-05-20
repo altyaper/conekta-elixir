@@ -19,6 +19,31 @@ defmodule ConektaTest.ClientTest do
         assert expected == Conekta.Client.encode_params(customer)
     end
 
+    test "should encode customer struct" do
+
+      new_order = %Conekta.Order{
+          currency: "MXN",
+          customer_info: %{
+              customer_id: "cus_2gXnQrxEpkdNfeeFT"
+          },
+          line_items: [%{
+              name: "Testing",
+              unit_price: 35000,
+              quantity: 1
+          }],
+          charges: [%{
+              payment_method: %{
+                  type: "default"
+              }
+          }]
+      }
+
+      expected = "{\"line_items\":[{\"unit_price\":35000,\"quantity\":1,\"name\":\"Testing\"}],\"customer_info\":{\"customer_id\":\"cus_2gXnQrxEpkdNfeeFT\"},\"currency\":\"MXN\",\"charges\":[{\"payment_method\":{\"type\":\"default\"}}]}"
+
+      assert expected == Conekta.Client.encode_params(new_order)
+
+    end
+
    end
 
 end
