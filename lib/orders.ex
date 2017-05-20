@@ -1,6 +1,7 @@
 defmodule Conekta.Orders do
   alias Conekta.OrdersResponse
   alias Conekta.Handler
+  alias Conekta.OrdersCreateResponse
 
   def orders do
     Conekta.Client.get_request("orders")
@@ -16,7 +17,7 @@ defmodule Conekta.Orders do
     |> case do
         {:ok, content} ->
           body = Handler.handle_status_code(content)
-          {:ok, Poison.decode!(body, as: %OrdersResponse{})}
+          {:ok, Poison.decode!(body, as: %OrdersCreateResponse{})}
     end
   end
 

@@ -26,7 +26,7 @@ defmodule ConektaTest.OrdersTest do
         new_order = %Conekta.Order{
             currency: "MXN",
             customer_info: %{
-                customer_id: "cus_2gXnQrxEpkdNfeeFT"
+                customer_id: "cus_2gXuVHVD7n9ewPda4"
             },
             line_items: [%{
                 name: "Testing",
@@ -35,12 +35,20 @@ defmodule ConektaTest.OrdersTest do
             }],
             charges: [%{
                 payment_method: %{
-                    type: "default"
+                    type: "card",
+                    token_id: "tok_test_visa_4242"
                 }
             }]
         }
 
-#        Conekta.Orders.create(new_order)
+        expected_mock = Mocks.OrdersMock.get_new_order_response()
+
+        with_mock Conekta.Client, [post_request: fn(_url,_params) -> expected_mock end] do
+
+            {:ok, content} = expected_mock
+            assert Poison.decode(content.body, as: %Conekta.OrdersCreateResponse{}) == Conekta.Orders.create(new_order)
+
+        end
 
     end
 
