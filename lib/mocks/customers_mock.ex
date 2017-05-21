@@ -1,9 +1,5 @@
-defmodule HTTPoison.Response do
-  defstruct body: nil, headers: nil, status_code: nil
-end
-
 defmodule Mocks.CustomersMock do
-
+  @moduledoc false
   def get_mock, do: {:ok, successful_response()}
   def get_new_customer_response, do: {:ok, successful_new_customer_response()}
   def get_delete_customer_response, do: {:ok, successful_delete_customer_response()}

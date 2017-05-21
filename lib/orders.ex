@@ -21,4 +21,13 @@ defmodule Conekta.Orders do
     end
   end
 
+  def update(id, order) do
+    Conekta.Client.put_request("orders/"<>id, order)
+    |> case do
+      {:ok, content} ->
+        body = Handler.handle_status_code(content)
+        {:ok, Poison.decode!(body)}
+    end
+  end
+
 end
