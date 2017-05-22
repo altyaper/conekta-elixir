@@ -1,8 +1,16 @@
 defmodule Conekta.Orders do
-  alias Conekta.OrdersResponse
-  alias Conekta.Handler
-  alias Conekta.OrdersCreateResponse
-  alias Conekta.OrdersFindResponse
+
+    @moduledoc """
+      Functions for retrieving and managing information about orders.
+
+      We can create, update, find and get all orders:
+
+      Endpoint: https://api.conekta.io/orders
+    """
+    alias Conekta.OrdersResponse
+    alias Conekta.Handler
+    alias Conekta.OrdersCreateResponse
+    alias Conekta.OrdersFindResponse
 
     @doc """
     Get all the current orders
