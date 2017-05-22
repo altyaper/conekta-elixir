@@ -53,3 +53,8 @@ defmodule Conekta.OrdersUpdateReponse do
     defstruct id: nil
 end
 
+defmodule Conekta.PlansResponse do
+    @moduledoc false
+    defstruct has_more: nil, total: nil, object: nil, data: nil
+end
+

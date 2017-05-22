@@ -1,8 +1,7 @@
 defmodule Conekta.Customers do
 
     @moduledoc """
-      Functions for retrieving information about clients and for
-      managing clients too.
+      Functions for retrieving and managing information about clients.
 
       We can create, update, find, delete and get all customers:
 

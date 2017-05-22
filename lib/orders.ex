@@ -7,8 +7,9 @@ defmodule Conekta.Orders do
 
       Endpoint: https://api.conekta.io/orders
     """
-    alias Conekta.OrdersResponse
+    alias Conekta.Client
     alias Conekta.Handler
+    alias Conekta.OrdersResponse
     alias Conekta.OrdersCreateResponse
     alias Conekta.OrdersFindResponse
 
@@ -22,7 +23,7 @@ defmodule Conekta.Orders do
         # => { :ok, %Conekta.OrdersResponse{}}
     """
     def orders do
-        Conekta.Client.get_request("orders")
+        Client.get_request("orders")
         |> case do
             {:ok, content} ->
               body = Handler.handle_status_code(content)
@@ -40,7 +41,7 @@ defmodule Conekta.Orders do
         # => { :ok, %Conekta.OrdersCreateResponse{}}
     """
     def create(order) when is_map(order) do
-        Conekta.Client.post_request("orders", order)
+        Client.post_request("orders", order)
         |> case do
             {:ok, content} ->
               body = Handler.handle_status_code(content)
@@ -58,7 +59,7 @@ defmodule Conekta.Orders do
         # => { :ok, %Conekta.OrdersFindResponse{}}
     """
     def find(id) do
-        Conekta.Client.get_request("orders/" <> id)
+        Client.get_request("orders/" <> id)
         |> case do
           {:ok, content} ->
             body = Handler.handle_status_code(content)
@@ -75,7 +76,7 @@ defmodule Conekta.Orders do
         # => { :ok, %{}}
     """
     def update(id, order) do
-        Conekta.Client.put_request("orders/"<>id, order)
+        Client.put_request("orders/"<>id, order)
         |> case do
           {:ok, content} ->
             body = Handler.handle_status_code(content)
