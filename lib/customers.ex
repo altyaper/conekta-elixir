@@ -15,6 +15,7 @@ defmodule Conekta.Customers do
     alias Conekta.CustomerFindResponse
     alias Conekta.CustomerDeleteResponse
     alias Conekta.CustomerSubscriptionResponse
+    alias Conekta.CustomerPaymentSourcesResponse
 
 
     @doc """
@@ -118,6 +119,14 @@ defmodule Conekta.Customers do
                 body = Handler.handle_status_code(content)
                 {:ok, Poison.decode!(body, as: %CustomerSubscriptionResponse{})}
         end
+    end
+
+    def payment_sources(client_id) do
+      case Client.get_request("customers/" <> client_id <> "/payment_sources") do
+        {:ok, content} ->
+            body = Handler.handle_status_code(content)
+            {:ok, Poison.decode!(body, as: %CustomerPaymentSourcesResponse{})}
+      end
     end
 
 end

@@ -91,6 +91,19 @@ defmodule ConektaTest.CustomerTest do
 
     end
 
+    test "should get customer payment_sources" do
+
+        expected_mock = Mocks.CustomersMock.get_payment_sources_customer_response()
+
+        with_mock Client, [get_request: fn(_) -> expected_mock end] do
+
+            {:ok, content} = expected_mock
+            assert {:ok, Poison.decode!(content.body, as: %Conekta.CustomerPaymentSourcesResponse{})} == Conekta.Customers.payment_sources("cus_2gZSnQGNwsSKR7c1V")
+
+        end
+
+    end
+
   end
 
 end

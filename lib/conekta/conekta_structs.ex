@@ -83,3 +83,8 @@ defmodule Conekta.CustomerSubscriptionResponse do
     defstruct id: nil, status: nil, object: nil, created_at: nil, subscription_start: nil, billing_cycle_start: nil, billing_cycle_end: nil, plan_id: nil, customer_id: nil, card_id: nil
 end
 
+defmodule Conekta.CustomerPaymentSourcesResponse do
+    @moduledoc false
+    defstruct has_more: nil, total: nil, object: nil, data: nil
+end
+
