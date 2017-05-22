@@ -52,6 +52,18 @@ defmodule ConektaTest.OrdersTest do
 
     end
 
+    test "should find an order" do
+
+       expected_mock = Mocks.OrdersMock.get_find_order_response()
+       with_mock Conekta.Client, [get_request: fn(_url) -> expected_mock end] do
+
+           {:ok, content} = expected_mock
+           assert Poison.decode(content.body, as: %Conekta.OrdersFindResponse{}) == Conekta.Orders.find("ord_2gZKFPPYzE7d7Qeu9")
+
+       end
+
+    end
+
     @tag :skip
     test "should update an order" do
 
