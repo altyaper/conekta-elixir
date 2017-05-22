@@ -85,6 +85,7 @@ defmodule Conekta.Customers do
 
     @doc """
     Update a Conekta client by passing a %Conekta.Customer{} struct with the new values
+
     [Conekta Documenation](https://developers.conekta.com/api?language=bash#update-customer)
 
     **Method**: `PUT`
