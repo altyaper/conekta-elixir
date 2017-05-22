@@ -63,16 +63,6 @@ defmodule ConektaTest.OrdersTest do
 
     end
 
-    @tag :skip
-    test "should update an order" do
-
-#      updated_order = %Conekta.Order{currency: "USD"}
-
-#      Conekta.Orders.update("ord_2gYz1hrCV5Zk7iBDk", updated_order)
-
-    end
-
   end
-
 
 end

@@ -10,7 +10,8 @@ defmodule Conekta.Plans do
     alias Conekta.Handler
     alias Conekta.Client
     alias Conekta.PlansResponse
-    alias Conekta.PlansFindResponse
+    alias Conekta.PlanFindResponse
+    alias Conekta.PlanUpdateResponse
 
     @doc """
     Get all the current plans
@@ -32,7 +33,6 @@ defmodule Conekta.Plans do
 
     @doc """
     Get a plan by passing the unique ID
-    [Conekta Documenation](https://developers.conekta.com/api?#plan)
 
     **Method**: `GET`
 
@@ -44,8 +44,17 @@ defmodule Conekta.Plans do
         |> case do
             {:ok, content} ->
                body = Handler.handle_status_code(content)
-               {:ok, Poison.decode!(body, as: %PlansFindResponse{})}
+               {:ok, Poison.decode!(body, as: %PlanFindResponse{})}
         end
+    end
+
+    def update(id, plan) do
+      Client.put_request("plans/"<>id, plan)
+      |> case do
+        {:ok, content} ->
+            body = Handler.handle_status_code(content)
+           {:ok, Poison.decode!(body, as: %PlanUpdateResponse{})}
+      end
     end
 
 end

@@ -21,16 +21,29 @@ defmodule ConektaTest.PlansTest do
 
       end
 
-      test "should get a plan by passong it's ID'" do
+      test "should get a plan" do
 
         expected_mock = Mocks.PlansMock.get_find_mock()
         with_mock Client, [get_request: fn(_) -> expected_mock end] do
 
             {:ok, content} = expected_mock
-            assert Poison.decode(content.body, as: %Conekta.PlansFindResponse{}) == Conekta.Plans.find("plan_2")
+            assert Poison.decode(content.body, as: %Conekta.PlanFindResponse{}) == Conekta.Plans.find("plan_2")
 
         end
 
+      end
+
+      test "should update a plan" do
+
+        plan = %Conekta.Plan{name: "Otro plan"}
+        expected_mock = Mocks.PlansMock.get_update_mock()
+
+        with_mock Client, [put_request: fn(_,_) -> expected_mock end] do
+
+            {:ok, content} = expected_mock
+            assert Poison.decode(content.body, as: %Conekta.PlanUpdateResponse{}) == Conekta.Plans.update("plan_2", plan)
+
+        end
 
       end
 

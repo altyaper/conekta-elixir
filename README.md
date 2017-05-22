@@ -1,4 +1,4 @@
-## Conekta Library
+# Conekta Library
 
 
 Wrapper to connect with https://api.conekta.io.
@@ -6,7 +6,7 @@ Wrapper to connect with https://api.conekta.io.
 [conekta-elixir documentation](https://hexdocs.pm/conekta/api-reference.html)
 
 
-# Setup
+## Setup
 
 ### Configuration
 Add your keys in your `config.exs` file
@@ -19,7 +19,7 @@ config :conekta,
 
 ```
 
-# Customers
+## Customers
 
 ### Get
 Get all the current customers
@@ -61,7 +61,7 @@ Conekta.Customers.delete(id)
 ```
 
 
-# Orders
+## Orders
 
 ### Get
 
@@ -89,6 +89,13 @@ customer_info: %{
 #Create an order
 response = Conekta.Orders.create(new_order)
 ```
+
+## Test
+If you want to add something new, make sure all the tests passes before making a PR
+```elixir
+mix test
+```
+
 ### Send pull request
 I would love to check new contributions to this repository.
 Fork from **dev** and do a PR into **dev** again.  
