@@ -12,6 +12,7 @@ defmodule Conekta.Orders do
     alias Conekta.OrdersResponse
     alias Conekta.OrdersCreateResponse
     alias Conekta.OrdersFindResponse
+    alias Conekta.OrderChargesResponse
 
     @doc """
     Get all the current orders
@@ -53,11 +54,11 @@ defmodule Conekta.Orders do
 
     **Method**: `GET`
 
-        Conekta.Orders.find(id)
+        Conekta.Orders.find(client_id)
         # => { :ok, %Conekta.OrdersFindResponse{}}
     """
-    def find(id) do
-        case Client.get_request("orders/" <> id) do
+    def find(client_id) do
+        case Client.get_request("orders/" <> client_id) do
             {:ok, content} ->
                 body = Handler.handle_status_code(content)
                 {:ok, Poison.decode!(body, as: %OrdersFindResponse{})}
@@ -69,15 +70,23 @@ defmodule Conekta.Orders do
 
     **Method**: `PUT`
 
-        Conekta.Orders.update(%Conekta.Order{})
+        Conekta.Orders.update(client_id, %Conekta.Order{})
         # => { :ok, %{}}
     """
-    def update(id, order) do
-        case Client.put_request("orders/" <> id, order) do
+    def update(client_id, order) do
+        case Client.put_request("orders/" <> client_id, order) do
             {:ok, content} ->
                 body = Handler.handle_status_code(content)
                 {:ok, Poison.decode!(body)}
         end
+    end
+
+    def charges(client_id) do
+      case Client.get_request("orders/" <> client_id <> "/charges") do
+        {:ok, content} ->
+            body = Handler.handle_status_code(content)
+            {:ok, Poison.decode!(body, as: %OrderChargesResponse{})}
+      end
     end
 
 end

@@ -59,7 +59,7 @@ defmodule Conekta.Customers do
 
     **Method**: `GET`
 
-        Conekta.Customers.find("cus_2gXuVHVD7n9ewPda4")
+        Conekta.Customers.find(client_id)
         # => { :ok, %Conekta.CustomerFindResponse{}}
     """
     def find(client_id) do
@@ -76,7 +76,7 @@ defmodule Conekta.Customers do
 
     **Method**: `DELETE`
 
-        Conekta.Customers.delete("cus_2gXuVHVD7n9ewPda4")
+        Conekta.Customers.delete(client_id)
         # => { :ok, %Conekta.CustomerDeleteResponse{}}
     """
     def delete(client_id) do
@@ -94,7 +94,7 @@ defmodule Conekta.Customers do
 
     **Method**: `PUT`
 
-        Conekta.Customers.update(%Conekta.Customer{})
+        Conekta.Customers.update(client_id, %Conekta.Customer{})
         # => { :ok, %Conekta.CustomerDeleteResponse{}}
     """
     def update(client_id, customer) do
@@ -111,7 +111,7 @@ defmodule Conekta.Customers do
 
     **Method**: `GET`
 
-        Conekta.Customers.subscription(id)
+        Conekta.Customers.subscription(client_id)
         # => { :ok, %Conekta.CustomerSubscriptionResponse{}}
     """
     def subscription(client_id) do
@@ -122,6 +122,15 @@ defmodule Conekta.Customers do
         end
     end
 
+    @doc """
+    Get the client payment sources
+    [Conekta Documenation](https://developers.conekta.com/api?language=node#payment-source)
+
+    **Method**: `GET`
+
+        Conekta.Customers.payment_sources(client_id)
+        # => { :ok, %Conekta.CustomerPaymentSourcesResponse{}}
+    """
     def payment_sources(client_id) do
       case Client.get_request("customers/" <> client_id <> "/payment_sources") do
         {:ok, content} ->
@@ -130,6 +139,15 @@ defmodule Conekta.Customers do
       end
     end
 
+    @doc """
+    Get the client shipping contacts
+    [Conekta Documenation](https://developers.conekta.com/api?language=node#shipping-contact)
+
+    **Method**: `GET`
+
+        Conekta.Customers.shipping_contacts(client_id)
+        # => { :ok, %Conekta.CustomerShippingContactsResponse{}}
+    """
     def shipping_contacts(client_id) do
       case Client.get_request("customers/" <> client_id <> "/shipping_contacts") do
         {:ok, content} ->

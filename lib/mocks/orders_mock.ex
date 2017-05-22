@@ -3,7 +3,23 @@ defmodule Mocks.OrdersMock do
     def get_mock, do: {:ok, successful_response()}
     def get_new_order_response, do: {:ok, successful_new_order_response()}
     def get_find_order_response, do: {:ok, successful_find_order_response()}
+    def get_charges_order_response, do: {:ok, successful_charges_order_response()}
 
+
+    defp successful_charges_order_response do
+        %HTTPoison.Response{body: "{\"has_more\":false,\"object\":\"list\",\"data\":[{\"id\":\"59229df6ffecf902c00cccfd\",\"livemode\":false,\"created_at\":1495440886,\"currency\":\"MXN\",\"device_fingerprint\":\"5BPc6nDxD9aoEzMKJSJUpzmNL37SjEBD\",\"payment_method\":{\"name\":\"Jorge Lopez\",\"exp_month\":\"12\",\"exp_year\":\"19\",\"auth_code\":\"308638\",\"object\":\"card_payment\",\"type\":\"credit\",\"last4\":\"1881\",\"brand\":\"visa\",\"issuer\":\"\",\"account_type\":\"\",\"country\":\"US\",\"fraud_score\":34,\"fraud_indicators\":[]},\"object\":\"charge\",\"status\":\"paid\",\"amount\":1500,\"paid_at\":1495440893,\"fee\":341,\"customer_id\":\"cus_2gZSnQGNwsSKR7c1V\",\"order_id\":\"ord_2gZSnR1CU4zy3PGVz\"}]}",
+         headers: [{"Date", "Mon, 22 May 2017 10:00:39 GMT"},
+          {"Content-Type", "application/json; charset=utf-8"},
+          {"Content-Length", "591"}, {"Connection", "keep-alive"}, {"Server", "Apache"},
+          {"Cache-Control", "max-age=0, private, must-revalidate"},
+          {"Conekta-Media-Type", "conekta-v2.0.0; format=json"},
+          {"ETag", "\"193bdabaed522f889f85befae286a9e8\""},
+          {"Strict-Transport-Security", "max-age=31536000; includeSubDomains"},
+          {"X-Content-Type-Options", "nosniff"}, {"X-Frame-Options", "SAMEORIGIN"},
+          {"X-Request-Id", "f58aa17d-a791-4b57-8288-ea5fb1d05acc"},
+          {"X-Runtime", "0.274542"}, {"X-XSS-Protection", "1; mode=block"},
+          {"Vary", "Accept-Encoding"}], status_code: 200}
+    end
     defp successful_find_order_response do
     %HTTPoison.Response{
               body: "{\"livemode\":false,\"amount\":2000,\"currency\":\"MXN\",\"payment_status\":\"paid\",\"amount_refunded\":0,\"customer_info\":{\"email\":\"jorge@pruebas.com\",\"name\":\"Random Name\",\"corporate\":false,\"customer_id\":\"cus_2gZKFPPYzE7d7Qeu4\",\"object\":\"customer_info\"},\"object\":\"order\",\"id\":\"ord_2gZKFPPYzE7d7Qeu9\",\"metadata\":{},\"created_at\":1495406552,\"updated_at\":1495406585,\"charges\":{\"object\":\"list\",\"has_more\":false,\"total\":1,\"data\":[{\"id\":\"592217d8edbb6e17da90597c\",\"livemode\":false,\"created_at\":1495406552,\"currency\":\"MXN\",\"device_fingerprint\":\"w4WDAvx7cRJqhPVza5PXNjBZW5QcnjGK\",\"payment_method\":{\"name\":\"Jorge Lopez\",\"exp_month\":\"12\",\"exp_year\":\"19\",\"auth_code\":\"943969\",\"object\":\"card_payment\",\"type\":\"credit\",\"last4\":\"1881\",\"brand\":\"visa\",\"issuer\":\"\",\"account_type\":\"\",\"country\":\"US\",\"fraud_score\":34,\"fraud_indicators\":[]},\"object\":\"charge\",\"status\":\"paid\",\"amount\":2000,\"paid_at\":1495406559,\"fee\":357,\"customer_id\":\"cus_2gZKFPPYzE7d7Qeu4\",\"order_id\":\"ord_2gZKFPPYzE7d7Qeu9\"}]}}",

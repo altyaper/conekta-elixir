@@ -88,6 +88,11 @@ defmodule Conekta.CustomerPaymentSourcesResponse do
     defstruct has_more: nil, total: nil, object: nil, data: nil
 end
 
+defmodule Conekta.OrderChargesResponse do
+    @moduledoc false
+    defstruct has_more: nil, object: nil, data: nil
+end
+
 defmodule Conekta.CustomerShippingContactsResponse do
     @moduledoc false
     defstruct has_more: nil, total: nil, object: nil, data: nil
