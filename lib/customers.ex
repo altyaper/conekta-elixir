@@ -102,6 +102,15 @@ defmodule Conekta.Customers do
         end
     end
 
+    @doc """
+    Get the client subscriptions
+    [Conekta Documenation](https://developers.conekta.com/api?language=node#subscription)
+
+    **Method**: `GET`
+
+        Conekta.Customers.subscription(id)
+        # => { :ok, %Conekta.CustomerSubscriptionResponse{}}
+    """
     def subscription(client_id) do
         case Client.get_request("customers/" <> client_id <> "/subscription") do
             {:ok, content} ->
