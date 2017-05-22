@@ -73,3 +73,8 @@ defmodule Conekta.PlanUpdateResponse do
     defstruct id: nil, name: nil, amount: nil, currency: nil, interval: nil, frequency: nil, created_at: nil
 end
 
+defmodule Conekta.PlanDeleteResponse do
+    @moduledoc false
+    defstruct id: nil, name: nil, amount: nil, currency: nil, interval: nil, frequency: nil, created_at: nil, deleted: nil
+end
+

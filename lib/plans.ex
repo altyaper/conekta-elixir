@@ -12,6 +12,7 @@ defmodule Conekta.Plans do
     alias Conekta.PlansResponse
     alias Conekta.PlanFindResponse
     alias Conekta.PlanUpdateResponse
+    alias Conekta.PlanDeleteResponse
 
     @doc """
     Get all the current plans
@@ -37,7 +38,7 @@ defmodule Conekta.Plans do
     **Method**: `GET`
 
         Conekta.Plans.find(id)
-        # => { :ok, %Conekta.PlansFindResponse{}}
+        # => { :ok, %Conekta.PlanFindResponse{}}
     """
     def find(id) do
         Client.get_request("plans/"<>id)
@@ -48,12 +49,39 @@ defmodule Conekta.Plans do
         end
     end
 
+    @doc """
+    Update a plan by passing a %Conekta.PlanUpdateResponse{} struct with the new data
+    [Conekta Documentation](https://developers.conekta.com/api?#update-plan)
+
+    **Method**: `PUT`
+
+        Conekta.Plans.update(%Conekta.Plan{})
+        # => { :ok, %Conekta.PlanUpdateResponse{}}
+    """
     def update(id, plan) do
       Client.put_request("plans/"<>id, plan)
       |> case do
         {:ok, content} ->
             body = Handler.handle_status_code(content)
            {:ok, Poison.decode!(body, as: %PlanUpdateResponse{})}
+      end
+    end
+
+    @doc """
+    Delete a plan by passing a unique ID
+    [Conekta Documentation](https://developers.conekta.com/api?#delete-plan)
+
+    **Method**: `DELETE`
+
+        Conekta.Plans.delete(id)
+        # => { :ok, %Conekta.PlanDeleteResponse{}}
+    """
+    def delete(id) do
+      Client.delete_request("plans/"<>id)
+      |> case do
+        {:ok, content} ->
+            body = Handler.handle_status_code(content)
+           {:ok, Poison.decode!(body, as: %PlanDeleteResponse{})}
       end
     end
 
