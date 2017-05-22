@@ -7,6 +7,38 @@ defmodule Mocks.CustomersMock do
     def get_subscription_customer_response, do: {:ok, successful_subscription_customer_response()}
     def get_payment_sources_customer_response, do: {:ok, successful_payment_sources_customer_response()}
     def get_shipping_contacts_customer_response, do: {:ok, successful_shipping_contacts_customer_response()}
+    def get_create_payment_source_customer_response, do: {:ok, successful_create_payment_source_customer_response()}
+    def get_delete_payment_source_customer_response, do: {:ok, successful_delete_payment_source_customer_response()}
+
+    defp successful_delete_payment_source_customer_response do
+        %HTTPoison.Response{body: "{\"id\":\"src_2gZSnQGNwsSKR7c1X\",\"object\":\"payment_source\",\"type\":\"card\",\"created_at\":1495440885,\"last4\":\"1881\",\"bin\":\"401288\",\"exp_month\":\"12\",\"exp_year\":\"19\",\"brand\":\"VISA\",\"name\":\"Jorge Lopez\",\"parent_id\":\"cus_2gZSnQGNwsSKR7c1V\",\"default\":true,\"deleted\":true}",
+         headers: [{"Date", "Mon, 22 May 2017 16:03:43 GMT"},
+          {"Content-Type", "application/json; charset=utf-8"},
+          {"Content-Length", "259"}, {"Connection", "keep-alive"}, {"Server", "Apache"},
+          {"Cache-Control", "max-age=0, private, must-revalidate"},
+          {"Conekta-Media-Type", "conekta-v2.0.0; format=json"},
+          {"ETag", "\"a80df6d212a3bca121db7eda68978e29\""},
+          {"Strict-Transport-Security", "max-age=31536000; includeSubDomains"},
+          {"X-Content-Type-Options", "nosniff"}, {"X-Frame-Options", "SAMEORIGIN"},
+          {"X-Request-Id", "0b4bef9d-ca45-4dfe-8db3-35dbac5517ac"},
+          {"X-Runtime", "0.060008"}, {"X-XSS-Protection", "1; mode=block"},
+          {"Vary", "Accept-Encoding"}], status_code: 200}
+    end
+
+    defp successful_create_payment_source_customer_response do
+        %HTTPoison.Response{body: "{\"id\":\"src_2gZYnGyQbPmCH8hdB\",\"object\":\"payment_source\",\"type\":\"card\",\"created_at\":1495468215,\"last4\":\"4242\",\"bin\":\"424242\",\"exp_month\":\"12\",\"exp_year\":\"19\",\"brand\":\"VISA\",\"name\":\"Jorge Lopez\",\"parent_id\":\"cus_2gZSnQGNwsSKR7c1V\",\"default\":false}",
+         headers: [{"Date", "Mon, 22 May 2017 15:50:15 GMT"},
+          {"Content-Type", "application/json; charset=utf-8"},
+          {"Content-Length", "245"}, {"Connection", "keep-alive"}, {"Server", "Apache"},
+          {"Cache-Control", "max-age=0, private, must-revalidate"},
+          {"Conekta-Media-Type", "conekta-v2.0.0; format=json"},
+          {"ETag", "\"8b0a7f5b4e78381440d9008a26ac0a01\""},
+          {"Strict-Transport-Security", "max-age=31536000; includeSubDomains"},
+          {"X-Content-Type-Options", "nosniff"}, {"X-Frame-Options", "SAMEORIGIN"},
+          {"X-Request-Id", "56a69073-d3de-4e5c-969d-ef6cc2872d9d"},
+          {"X-Runtime", "0.069266"}, {"X-XSS-Protection", "1; mode=block"},
+          {"Vary", "Accept-Encoding"}], status_code: 200}
+    end
 
     defp successful_shipping_contacts_customer_response do
         %HTTPoison.Response{body: "{\"has_more\":false,\"total\":1,\"object\":\"list\",\"data\":[{\"id\":\"src_2gZSnQGNwsSKR7c1X\",\"object\":\"payment_source\",\"type\":\"card\",\"created_at\":1495440885,\"last4\":\"1881\",\"bin\":\"401288\",\"exp_month\":\"12\",\"exp_year\":\"19\",\"brand\":\"VISA\",\"name\":\"Jorge Lopez\",\"parent_id\":\"cus_2gZSnQGNwsSKR7c1V\",\"default\":true}]}",

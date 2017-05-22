@@ -103,6 +103,27 @@ defmodule ConektaTest.CustomerTest do
         end
     end
 
+    test "should create a payment source" do
+
+        new_payment_source = %Conekta.PaymentSource{token_id: "tok_test_visa_4242", type: "card"}
+        expected_mock = Mocks.CustomersMock.get_create_payment_source_customer_response()
+
+        with_mock Client, [post_request: fn(_,_) -> expected_mock end] do
+            {:ok, content} = expected_mock
+            assert {:ok, Poison.decode!(content.body, as: %Conekta.CustomerCreatePaymentSourceResponse{})} == Conekta.Customers.create_payment_source("cus_2gZSnQGNwsSKR7c1V", new_payment_source)
+        end
+    end
+
+    test "should delete a payment source" do
+
+      expected_mock = Mocks.CustomersMock.get_delete_payment_source_customer_response()
+      with_mock Client, [delete_request: fn(_) -> expected_mock end] do
+          {:ok, content} = expected_mock
+          assert {:ok, Poison.decode!(content.body, as: %Conekta.CustomerDeletePaymentSourceResponse{})} == Conekta.Customers.delete_payment_source("cus_2gZSnQGNwsSKR7c1V", "src_2gZSnQGNwsSKR7c1X")
+      end
+
+    end
+
   end
 
 end

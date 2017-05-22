@@ -17,6 +17,8 @@ defmodule Conekta.Customers do
     alias Conekta.CustomerSubscriptionResponse
     alias Conekta.CustomerPaymentSourcesResponse
     alias Conekta.CustomerShippingContactsResponse
+    alias Conekta.CustomerCreatePaymentSourceResponse
+    alias Conekta.CustomerDeletePaymentSourceResponse
 
 
     @doc """
@@ -137,6 +139,40 @@ defmodule Conekta.Customers do
             body = Handler.handle_status_code(content)
             {:ok, Poison.decode!(body, as: %CustomerPaymentSourcesResponse{})}
       end
+    end
+
+    @doc """
+    Create a new payment source
+    [Conekta Documenation](https://developers.conekta.com/api?language=bash#create-payment-source)
+
+    **Method**: `POST`
+
+        Conekta.Customers.create_payment_source(client_id, %Conekta.PaymentSource{})
+        # => { :ok, %Conekta.CustomerCreatePaymentSourceResponse{}}
+    """
+    def create_payment_source(client_id, payment_source) do
+      case Client.post_request("customers/" <> client_id <> "/payment_sources", payment_source) do
+        {:ok, content} ->
+            body = Handler.handle_status_code(content)
+            {:ok, Poison.decode!(body, as: %CustomerCreatePaymentSourceResponse{})}
+      end
+    end
+
+    @doc """
+    Delete a payment source from a client
+    [Conekta Documenation](https://developers.conekta.com/api?language=bash#delete-payment-source)
+
+    **Method**: `DELETE`
+
+        Conekta.Customers.delete_payment_source(client_id, payment_source_id)
+        # => { :ok, %Conekta.CustomerDeletePaymentSourceResponse{}}
+    """
+    def delete_payment_source(client_id, payment_source_id) do
+        case Client.delete_request("customers/" <> client_id <> "/payment_sources/" <> payment_source_id) do
+            {:ok, content} ->
+                body = Handler.handle_status_code(content)
+                {:ok, Poison.decode!(body, as: %CustomerDeletePaymentSourceResponse{})}
+        end
     end
 
     @doc """

@@ -83,6 +83,11 @@ defmodule Conekta.CustomerSubscriptionResponse do
     defstruct id: nil, status: nil, object: nil, created_at: nil, subscription_start: nil, billing_cycle_start: nil, billing_cycle_end: nil, plan_id: nil, customer_id: nil, card_id: nil
 end
 
+defmodule Conekta.PaymentSource do
+    @moduledoc false
+    defstruct token_id: nil, type: nil
+end
+
 defmodule Conekta.CustomerPaymentSourcesResponse do
     @moduledoc false
     defstruct has_more: nil, total: nil, object: nil, data: nil
@@ -93,8 +98,19 @@ defmodule Conekta.OrderChargesResponse do
     defstruct has_more: nil, object: nil, data: nil
 end
 
+defmodule Conekta.CustomerCreatePaymentSourceResponse do
+    @moduledoc false
+    defstruct id: nil, object: nil, type: nil, created_at: nil, last4: nil, bin: nil, exp_month: nil, exp_year: nil, brand: nil, name: nil, parent_id: nil, default: nil
+end
+
+
 defmodule Conekta.CustomerShippingContactsResponse do
     @moduledoc false
     defstruct has_more: nil, total: nil, object: nil, data: nil
+end
+
+defmodule Conekta.CustomerDeletePaymentSourceResponse do
+    @moduledoc false
+    defstruct id: nil, object: nil, type: nil, created_at: nil, last4: nil, bin: nil, exp_month: nil, exp_year: nil, brand: nil, name: nil, parent_id: nil, default: nil, deleted: nil
 end
 
