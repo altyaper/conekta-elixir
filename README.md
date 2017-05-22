@@ -3,6 +3,8 @@
 
 Wrapper to connect with https://api.conekta.io.
 
+[conekta-elixir documentation](https://hexdocs.pm/conekta/api-reference.html)
+
 
 # Setup
 
@@ -20,13 +22,14 @@ config :conekta,
 # Customers
 
 ### Get
-
+Get all the current customers
 ```elixir
 #Get the last
 Conekta.Customers.customers()
 ```
 
 ### Create
+Create a customer by passing a `%Conekta.Customer{}` struct
 
 ```elixir
 #Create a new customer map
@@ -44,6 +47,19 @@ new_customer = %Customer{
 Conekta.Customers.create(new_customer)
 
 ```
+
+### Find
+Find a customer by passing the unique ID
+```elixir
+Conekta.Customers.find(id)
+```
+
+### Delete
+Delete a customer by passing the unique ID
+```elixir
+Conekta.Customers.delete(id)
+```
+
 
 # Orders
 
@@ -71,5 +87,12 @@ customer_info: %{
 }]}
 
 #Create an order
-response = Conekta.Orders.create_order(new_order)
+response = Conekta.Orders.create(new_order)
 ```
+### Send pull request
+I would love to check new contributions to this repository.
+Fork from **dev** and do a PR into **dev** again.  
+
+### License
+
+Developed by [Jorge Chavez](https://twitter.com/JorgeChavz). Available with [MIT License](https://github.com/echavezNS/conekta-elixir/blob/master/LICENSE).
