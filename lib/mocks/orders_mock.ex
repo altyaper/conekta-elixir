@@ -2,6 +2,26 @@ defmodule Mocks.OrdersMock do
     @moduledoc false
     def get_mock, do: {:ok, successful_response()}
     def get_new_order_response, do: {:ok, successful_new_order_response()}
+    def get_find_order_response, do: {:ok, successful_find_order_response()}
+
+    defp successful_find_order_response do
+    %HTTPoison.Response{
+              body: "{\"livemode\":false,\"amount\":2000,\"currency\":\"MXN\",\"payment_status\":\"paid\",\"amount_refunded\":0,\"customer_info\":{\"email\":\"jorge@pruebas.com\",\"name\":\"Random Name\",\"corporate\":false,\"customer_id\":\"cus_2gZKFPPYzE7d7Qeu4\",\"object\":\"customer_info\"},\"object\":\"order\",\"id\":\"ord_2gZKFPPYzE7d7Qeu9\",\"metadata\":{},\"created_at\":1495406552,\"updated_at\":1495406585,\"charges\":{\"object\":\"list\",\"has_more\":false,\"total\":1,\"data\":[{\"id\":\"592217d8edbb6e17da90597c\",\"livemode\":false,\"created_at\":1495406552,\"currency\":\"MXN\",\"device_fingerprint\":\"w4WDAvx7cRJqhPVza5PXNjBZW5QcnjGK\",\"payment_method\":{\"name\":\"Jorge Lopez\",\"exp_month\":\"12\",\"exp_year\":\"19\",\"auth_code\":\"943969\",\"object\":\"card_payment\",\"type\":\"credit\",\"last4\":\"1881\",\"brand\":\"visa\",\"issuer\":\"\",\"account_type\":\"\",\"country\":\"US\",\"fraud_score\":34,\"fraud_indicators\":[]},\"object\":\"charge\",\"status\":\"paid\",\"amount\":2000,\"paid_at\":1495406559,\"fee\":357,\"customer_id\":\"cus_2gZKFPPYzE7d7Qeu4\",\"order_id\":\"ord_2gZKFPPYzE7d7Qeu9\"}]}}",
+              headers: [{"Server", "nginx"}, {"Date", "Thu, 21 Jul 2016 16:52:38 GMT"},
+                {"Content-Type", "application/json"}, {"Content-Length", "397"},
+                {"Connection", "keep-alive"}, {"Keep-Alive", "timeout=10"},
+                {"Vary", "Accept-Encoding"}, {"Vary", "Accept-Encoding"},
+                {"X-UA-Compatible", "IE=edge"}, {"X-Frame-Options", "deny"},
+                {"Content-Security-Policy",
+                  "default-src 'self'; script-src 'self' foo"},
+                {"X-Content-Security-Policy",
+                  "default-src 'self'; script-src 'self' foo"},
+                {"Cache-Control", "no-cache, no-store, must-revalidate"},
+                {"Pragma", "no-cache"}, {"X-Content-Type-Options", "nosniff"},
+                {"Strict-Transport-Security", "max-age=31536000;"}],
+                status_code: 200
+            }
+    end
 
     defp successful_new_order_response do
         %HTTPoison.Response{
@@ -41,8 +61,6 @@ defmodule Mocks.OrdersMock do
         status_code: 200
     }
   end
-
-
 
 
 

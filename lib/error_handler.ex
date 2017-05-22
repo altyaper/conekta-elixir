@@ -1,4 +1,5 @@
 defmodule ConektaError do
+    @moduledoc false
     defexception message: "default message"
 end
 

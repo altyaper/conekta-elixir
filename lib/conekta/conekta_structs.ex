@@ -43,8 +43,38 @@ defmodule Conekta.OrdersCreateResponse do
     defstruct livemode: nil, amount: nil, currency: nil, payment_status: nil, amount_refunded: nil, customer_info: nil, object: nil, id: nil, metadata: nil, created_at: nil, updated_at: nil, line_items: nil, parent_id: nil, metadata: nil, charges: nil
 end
 
+defmodule Conekta.OrdersFindResponse do
+    @moduledoc false
+    defstruct livemode: nil, amount: nil, currency: nil, payment_status: nil, amount_refunded: nil, customer_info: nil, object: nil, id: nil, metadata: nil, created_at: nil, updated_at: nil, changes: nil
+end
+
 defmodule Conekta.OrdersUpdateReponse do
     @moduledoc false
     defstruct id: nil
+end
+
+defmodule Conekta.PlansResponse do
+    @moduledoc false
+    defstruct has_more: nil, total: nil, object: nil, data: nil
+end
+
+defmodule Conekta.PlanFindResponse do
+    @moduledoc false
+    defstruct id: nil, livemode: nil, object: nil, frequency: nil, interval: nil, currency: nil, amount: nil, name: nil, created_at: nil
+end
+
+defmodule Conekta.Plan do
+    @moduledoc false
+    defstruct id: nil, name: nil, amount: nil, currency: nil, interval: nil, frequency: nil, trial_period_days: nil, expiry_count: nil
+end
+
+defmodule Conekta.PlanUpdateResponse do
+    @moduledoc false
+    defstruct id: nil, name: nil, amount: nil, currency: nil, interval: nil, frequency: nil, created_at: nil
+end
+
+defmodule Conekta.PlanDeleteResponse do
+    @moduledoc false
+    defstruct id: nil, name: nil, amount: nil, currency: nil, interval: nil, frequency: nil, created_at: nil, deleted: nil
 end
 

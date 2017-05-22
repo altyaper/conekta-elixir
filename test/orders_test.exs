@@ -1,7 +1,6 @@
 defmodule ConektaTest.OrdersTest do
   use ExUnit.Case, async: false
   import Mock
-  alias Conekta.OrdersResponse
 
   describe "Orders" do
 
@@ -13,7 +12,7 @@ defmodule ConektaTest.OrdersTest do
 
         actual = Conekta.Orders.orders()
         {:ok, content} = expected_mock
-        expected_orders = {:ok, Poison.decode!(content.body, as: %OrdersResponse{})}
+        expected_orders = {:ok, Poison.decode!(content.body, as: %Conekta.OrdersResponse{})}
 
         assert actual == expected_orders
 
@@ -52,16 +51,18 @@ defmodule ConektaTest.OrdersTest do
 
     end
 
-    @tag :skip
-    test "should update an order" do
+    test "should find an order" do
 
-      updated_order = %Conekta.Order{currency: "USD"}
+       expected_mock = Mocks.OrdersMock.get_find_order_response()
+       with_mock Conekta.Client, [get_request: fn(_url) -> expected_mock end] do
 
-#      Conekta.Orders.update("ord_2gYz1hrCV5Zk7iBDk", updated_order)
+           {:ok, content} = expected_mock
+           assert Poison.decode(content.body, as: %Conekta.OrdersFindResponse{}) == Conekta.Orders.find("ord_2gZKFPPYzE7d7Qeu9")
+
+       end
 
     end
 
   end
-
 
 end
