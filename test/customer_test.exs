@@ -80,6 +80,17 @@ defmodule ConektaTest.CustomerTest do
 
     end
 
+    test "should get customer subscription" do
+
+        expected_mock = Mocks.CustomersMock.get_subscription_customer_response()
+
+        with_mock Client, [get_request: fn(_) -> expected_mock end] do
+            {:ok, content} = expected_mock
+            assert {:ok, Poison.decode!(content.body, as: %Conekta.CustomerSubscriptionResponse{})} == Conekta.Customers.subscription("cus_2gZSnQGNwsSKR7c1V")
+        end
+
+    end
+
   end
 
 end

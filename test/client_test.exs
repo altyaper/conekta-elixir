@@ -1,6 +1,8 @@
 defmodule ConektaTest.ClientTest do
     use ExUnit.Case, async: false
 
+   doctest Conekta.Client
+
    describe "Client" do
 
     test "should encode flat params" do

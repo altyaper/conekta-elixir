@@ -8,11 +8,13 @@ defmodule Conekta.Customers do
       Endpoint: https://api.conekta.io/customers
     """
 
+    alias Conekta.Client
     alias Conekta.Customer
     alias Conekta.CustomersResponse
     alias Conekta.Handler
     alias Conekta.CustomerFindResponse
     alias Conekta.CustomerDeleteResponse
+    alias Conekta.CustomerSubscriptionResponse
 
 
     @doc """
@@ -25,7 +27,7 @@ defmodule Conekta.Customers do
         # => { :ok, %Conekta.CustomersResponse{}}
     """
     def customers do
-        case Conekta.Client.get_request("customers") do
+        case Client.get_request("customers") do
             {:ok, content} ->
                 body = Handler.handle_status_code(content)
                 {:ok, Poison.decode!(body, as: %CustomersResponse{})}
@@ -43,7 +45,7 @@ defmodule Conekta.Customers do
         # => { :ok, %Conekta.Customer{}}
     """
     def create(customer) do
-        case Conekta.Client.post_request("customers", customer) do
+        case Client.post_request("customers", customer) do
             {:ok, content} ->
                 body = Handler.handle_status_code(content)
                 {:ok, Poison.decode!(body, as: %Customer{})}
@@ -58,8 +60,8 @@ defmodule Conekta.Customers do
         Conekta.Customers.find("cus_2gXuVHVD7n9ewPda4")
         # => { :ok, %Conekta.CustomerFindResponse{}}
     """
-    def find(id) do
-        case Conekta.Client.get_request("customers/" <> id) do
+    def find(client_id) do
+        case Client.get_request("customers/" <> client_id) do
             {:ok, content} ->
                 body = Handler.handle_status_code(content)
                 {:ok, Poison.decode!(body, as: %CustomerFindResponse{})}
@@ -75,8 +77,8 @@ defmodule Conekta.Customers do
         Conekta.Customers.delete("cus_2gXuVHVD7n9ewPda4")
         # => { :ok, %Conekta.CustomerDeleteResponse{}}
     """
-    def delete(id) do
-        case Conekta.Client.delete_request("customers/" <> id) do
+    def delete(client_id) do
+        case Client.delete_request("customers/" <> client_id) do
             {:ok, content} ->
                 body = Handler.handle_status_code(content)
                 {:ok, Poison.decode!(body, as: %CustomerDeleteResponse{})}
@@ -92,11 +94,19 @@ defmodule Conekta.Customers do
         Conekta.Customers.update(%Conekta.Customer{})
         # => { :ok, %Conekta.CustomerDeleteResponse{}}
     """
-    def update(id, customer) do
-        case Conekta.Client.put_request("customers/" <> id, customer) do
+    def update(client_id, customer) do
+        case Client.put_request("customers/" <> client_id, customer) do
             {:ok, content} ->
                 body = Handler.handle_status_code(content)
                 {:ok, Poison.decode!(body, as: %CustomerUpdateResponse{})}
+        end
+    end
+
+    def subscription(client_id) do
+        case Client.get_request("customers/" <> client_id <> "/subscription") do
+            {:ok, content} ->
+                body = Handler.handle_status_code(content)
+                {:ok, Poison.decode!(body, as: %CustomerSubscriptionResponse{})}
         end
     end
 
