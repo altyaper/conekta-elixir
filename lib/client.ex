@@ -22,6 +22,14 @@ defmodule Conekta.Client do
     put(url, encode_params(params))
   end
 
+  @doc ~S"""
+
+    ## Examples
+
+        iex> Conekta.Client.encode_params(%Conekta.Customer{name: "Jorge Chavez", id: nil})
+        "{\"name\":\"Jorge Chavez\"}"
+
+  """
   def encode_params(param) when is_map(param) do
     param
     |> Map.from_struct

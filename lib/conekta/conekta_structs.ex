@@ -78,3 +78,8 @@ defmodule Conekta.PlanDeleteResponse do
     defstruct id: nil, name: nil, amount: nil, currency: nil, interval: nil, frequency: nil, created_at: nil, deleted: nil
 end
 
+defmodule Conekta.CustomerSubscriptionResponse do
+    @moduledoc false
+    defstruct id: nil, status: nil, object: nil, created_at: nil, subscription_start: nil, billing_cycle_start: nil, billing_cycle_end: nil, plan_id: nil, customer_id: nil, card_id: nil
+end
+
