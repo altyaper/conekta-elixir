@@ -9,6 +9,23 @@ defmodule Mocks.CustomersMock do
     def get_shipping_contacts_customer_response, do: {:ok, successful_shipping_contacts_customer_response()}
     def get_create_payment_source_customer_response, do: {:ok, successful_create_payment_source_customer_response()}
     def get_delete_payment_source_customer_response, do: {:ok, successful_delete_payment_source_customer_response()}
+    def get_create_shipping_contact_customer_response, do: {:ok, successful_create_shipping_contact_customer_response()}
+
+
+    defp successful_create_shipping_contact_customer_response do
+      %HTTPoison.Response{body: "{\"receiver\":\"Jorge Receiver\",\"phone\":\"6141179192\",\"between_streets\":\"Jose Maria y Pedro Dominguez\",\"address\":{\"street1\":\"Hacienda\",\"residential\":true,\"object\":\"shipping_address\",\"postal_code\":\"31140\"},\"id\":\"ship_cont_2gZZUHLY5yz7tetRe\",\"object\":\"shipping_contact\",\"created_at\":1495471358,\"parent_id\":\"cus_2gZSnQGNwsSKR7c1V\",\"default\":false}",
+       headers: [{"Date", "Mon, 22 May 2017 16:42:38 GMT"},
+        {"Content-Type", "application/json; charset=utf-8"},
+        {"Content-Length", "340"}, {"Connection", "keep-alive"}, {"Server", "Apache"},
+        {"Cache-Control", "max-age=0, private, must-revalidate"},
+        {"Conekta-Media-Type", "conekta-v2.0.0; format=json"},
+        {"ETag", "\"c1c4dc7a65f6ee0185e4c9b930d41635\""},
+        {"Strict-Transport-Security", "max-age=31536000; includeSubDomains"},
+        {"X-Content-Type-Options", "nosniff"}, {"X-Frame-Options", "SAMEORIGIN"},
+        {"X-Request-Id", "cb4d77ea-5f37-4f68-acde-0619c5e1d75b"},
+        {"X-Runtime", "0.086365"}, {"X-XSS-Protection", "1; mode=block"},
+        {"Vary", "Accept-Encoding"}], status_code: 200}
+    end
 
     defp successful_delete_payment_source_customer_response do
         %HTTPoison.Response{body: "{\"id\":\"src_2gZSnQGNwsSKR7c1X\",\"object\":\"payment_source\",\"type\":\"card\",\"created_at\":1495440885,\"last4\":\"1881\",\"bin\":\"401288\",\"exp_month\":\"12\",\"exp_year\":\"19\",\"brand\":\"VISA\",\"name\":\"Jorge Lopez\",\"parent_id\":\"cus_2gZSnQGNwsSKR7c1V\",\"default\":true,\"deleted\":true}",

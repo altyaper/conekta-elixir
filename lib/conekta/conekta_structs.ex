@@ -114,3 +114,12 @@ defmodule Conekta.CustomerDeletePaymentSourceResponse do
     defstruct id: nil, object: nil, type: nil, created_at: nil, last4: nil, bin: nil, exp_month: nil, exp_year: nil, brand: nil, name: nil, parent_id: nil, default: nil, deleted: nil
 end
 
+defmodule Conekta.CustomerCreateShippingContactResponse do
+    @moduledoc false
+    defstruct phone: nil, receiver: nil, between_streets: nil, address: nil
+end
+
+defmodule Conekta.ShippingContact do
+    @moduledoc false
+    defstruct phone: nil, receiver: nil, between_streets: nil, address: %{street1: nil, postal_code: nil, country: nil}
+end

@@ -93,16 +93,6 @@ defmodule ConektaTest.CustomerTest do
 
     end
 
-    test "should get customer shipping contacts" do
-
-        expected_mock = Mocks.CustomersMock.get_shipping_contacts_customer_response()
-
-        with_mock Client, [get_request: fn(_) -> expected_mock end] do
-            {:ok, content} = expected_mock
-            assert {:ok, Poison.decode!(content.body, as: %Conekta.CustomerShippingContactsResponse{})} == Conekta.Customers.shipping_contacts("cus_2gZSnQGNwsSKR7c1V")
-        end
-    end
-
     test "should create a payment source" do
 
         new_payment_source = %Conekta.PaymentSource{token_id: "tok_test_visa_4242", type: "card"}
@@ -124,6 +114,29 @@ defmodule ConektaTest.CustomerTest do
 
     end
 
+
+  end
+
+    describe "Shipping Contact" do
+
+        test "should get customer shipping contacts" do
+
+            expected_mock = Mocks.CustomersMock.get_shipping_contacts_customer_response()
+
+            with_mock Client, [get_request: fn(_) -> expected_mock end] do
+                {:ok, content} = expected_mock
+                assert {:ok, Poison.decode!(content.body, as: %Conekta.CustomerShippingContactsResponse{})} == Conekta.Customers.shipping_contacts("cus_2gZSnQGNwsSKR7c1V")
+            end
+        end
+
+        test "should create a shipping contact" do
+            expected_mock = Mocks.CustomersMock.get_create_shipping_contact_customer_response()
+            new_shipping_contact = %Conekta.ShippingContact{phone: "6141179192", receiver: "Jorge Receiver", between_streets: "Jose Maria y Pedro Dominguez", address: %{street1: "Hacienda", postal_code: "31140", country: "MXN"}}
+            with_mock Client, [post_request: fn(_,_) -> expected_mock end] do
+                {:ok, content} = expected_mock
+                assert {:ok, Poison.decode!(content.body, as: %Conekta.CustomerCreateShippingContactResponse{})} == Conekta.Customers.create_shipping_contact("cus_2gZSnQGNwsSKR7c1V", new_shipping_contact)
+            end
+        end
   end
 
 end

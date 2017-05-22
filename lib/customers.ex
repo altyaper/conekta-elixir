@@ -19,6 +19,7 @@ defmodule Conekta.Customers do
     alias Conekta.CustomerShippingContactsResponse
     alias Conekta.CustomerCreatePaymentSourceResponse
     alias Conekta.CustomerDeletePaymentSourceResponse
+    alias Conekta.CustomerCreateShippingContactResponse
 
 
     @doc """
@@ -189,6 +190,23 @@ defmodule Conekta.Customers do
         {:ok, content} ->
             body = Handler.handle_status_code(content)
             {:ok, Poison.decode!(body, as: %CustomerShippingContactsResponse{})}
+      end
+    end
+
+    @doc """
+    Create a new shipping contact for a customer
+    [Conekta Documenation](https://developers.conekta.com/api?language=bash#create-shipping-contact-customer)
+
+    **Method**: `POST`
+
+        Conekta.Customers.create_shipping_contact(client_id, %Conekta.ShippingContact{})
+        # => { :ok, %Conekta.CustomerCreateShippingContactResponse{}}
+    """
+    def create_shipping_contact(client_id, shipping_contact) do
+      case Client.post_request("customers/" <> client_id <> "/shipping_contacts", shipping_contact) do
+        {:ok, content} ->
+            body = Handler.handle_status_code(content)
+            {:ok, Poison.decode!(body, as: %CustomerCreateShippingContactResponse{})}
       end
     end
 
