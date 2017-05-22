@@ -11,7 +11,7 @@ defmodule Conekta.Client do
   end
 
   def post_request(url, params) do
-    post(url, encode_params(params),[], [timeout: 150000, recv_timeout: 150000])
+    post(url, encode_params(params), [], [timeout: 150_000, recv_timeout: 150_000])
   end
 
   def delete_request(url) do

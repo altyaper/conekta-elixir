@@ -24,11 +24,10 @@ defmodule Conekta.Plans do
         # => { :ok, %Conekta.PlansResponse{}}
     """
     def plans do
-        Client.get_request("plans")
-        |> case do
-        {:ok, content} ->
-            body = Handler.handle_status_code(content)
-            {:ok, Poison.decode!(body, as: %PlansResponse{})}
+        case Client.get_request("plans") do
+            {:ok, content} ->
+                body = Handler.handle_status_code(content)
+                {:ok, Poison.decode!(body, as: %PlansResponse{})}
       end
     end
 
@@ -41,8 +40,7 @@ defmodule Conekta.Plans do
         # => { :ok, %Conekta.PlanFindResponse{}}
     """
     def find(id) do
-        Client.get_request("plans/"<>id)
-        |> case do
+        case Client.get_request("plans/" <> id) do
             {:ok, content} ->
                body = Handler.handle_status_code(content)
                {:ok, Poison.decode!(body, as: %PlanFindResponse{})}
@@ -59,12 +57,11 @@ defmodule Conekta.Plans do
         # => { :ok, %Conekta.PlanUpdateResponse{}}
     """
     def update(id, plan) do
-      Client.put_request("plans/"<>id, plan)
-      |> case do
-        {:ok, content} ->
-            body = Handler.handle_status_code(content)
-           {:ok, Poison.decode!(body, as: %PlanUpdateResponse{})}
-      end
+        case Client.put_request("plans/" <> id, plan) do
+            {:ok, content} ->
+                body = Handler.handle_status_code(content)
+                {:ok, Poison.decode!(body, as: %PlanUpdateResponse{})}
+        end
     end
 
     @doc """
@@ -77,12 +74,11 @@ defmodule Conekta.Plans do
         # => { :ok, %Conekta.PlanDeleteResponse{}}
     """
     def delete(id) do
-      Client.delete_request("plans/"<>id)
-      |> case do
-        {:ok, content} ->
-            body = Handler.handle_status_code(content)
-           {:ok, Poison.decode!(body, as: %PlanDeleteResponse{})}
-      end
+        case Client.delete_request("plans/" <> id) do
+            {:ok, content} ->
+                body = Handler.handle_status_code(content)
+                {:ok, Poison.decode!(body, as: %PlanDeleteResponse{})}
+        end
     end
 
 end

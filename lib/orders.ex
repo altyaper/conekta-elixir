@@ -23,11 +23,10 @@ defmodule Conekta.Orders do
         # => { :ok, %Conekta.OrdersResponse{}}
     """
     def orders do
-        Client.get_request("orders")
-        |> case do
+        case Client.get_request("orders") do
             {:ok, content} ->
-              body = Handler.handle_status_code(content)
-              {:ok, Poison.decode!(body, as: %OrdersResponse{})}
+                body = Handler.handle_status_code(content)
+                {:ok, Poison.decode!(body, as: %OrdersResponse{})}
         end
     end
 
@@ -41,11 +40,10 @@ defmodule Conekta.Orders do
         # => { :ok, %Conekta.OrdersCreateResponse{}}
     """
     def create(order) when is_map(order) do
-        Client.post_request("orders", order)
-        |> case do
+        case Client.post_request("orders", order) do
             {:ok, content} ->
-              body = Handler.handle_status_code(content)
-              {:ok, Poison.decode!(body, as: %OrdersCreateResponse{})}
+                body = Handler.handle_status_code(content)
+                {:ok, Poison.decode!(body, as: %OrdersCreateResponse{})}
         end
     end
 
@@ -59,11 +57,10 @@ defmodule Conekta.Orders do
         # => { :ok, %Conekta.OrdersFindResponse{}}
     """
     def find(id) do
-        Client.get_request("orders/" <> id)
-        |> case do
-          {:ok, content} ->
-            body = Handler.handle_status_code(content)
-            {:ok, Poison.decode!(body, as: %OrdersFindResponse{})}
+        case Client.get_request("orders/" <> id) do
+            {:ok, content} ->
+                body = Handler.handle_status_code(content)
+                {:ok, Poison.decode!(body, as: %OrdersFindResponse{})}
         end
     end
 
@@ -76,11 +73,10 @@ defmodule Conekta.Orders do
         # => { :ok, %{}}
     """
     def update(id, order) do
-        Client.put_request("orders/"<>id, order)
-        |> case do
-          {:ok, content} ->
-            body = Handler.handle_status_code(content)
-            {:ok, Poison.decode!(body)}
+        case Client.put_request("orders/" <> id, order) do
+            {:ok, content} ->
+                body = Handler.handle_status_code(content)
+                {:ok, Poison.decode!(body)}
         end
     end
 
