@@ -2,9 +2,25 @@ defmodule Mocks.PlansMock do
     @moduledoc false
 
     def get_plans_mock, do: {:ok, successful_plans_response()}
+    def get_find_mock, do: {:ok, successful_find_plan_response()}
 
+    defp successful_find_plan_response do
+        %HTTPoison.Response{body: "{\"id\":\"plan_2\",\"livemode\":false,\"created_at\":1495406544,\"name\":\"1 año\",\"amount\":2000,\"currency\":\"MXN\",\"interval\":\"year\",\"frequency\":1,\"object\":\"plan\"}",
+          headers: [{"Date", "Mon, 22 May 2017 04:14:50 GMT"},
+           {"Content-Type", "application/json; charset=utf-8"},
+           {"Content-Length", "151"}, {"Connection", "keep-alive"},
+           {"Server", "Apache"},
+           {"Cache-Control", "max-age=0, private, must-revalidate"},
+           {"Conekta-Media-Type", "conekta-v2.0.0; format=json"},
+           {"ETag", "\"84ca9e96f08f4a35e4a5a36094a37df7\""},
+           {"Strict-Transport-Security", "max-age=31536000; includeSubDomains"},
+           {"X-Content-Type-Options", "nosniff"}, {"X-Frame-Options", "SAMEORIGIN"},
+           {"X-Request-Id", "e92e520e-8572-49fb-8b5d-724b89dd65ba"},
+           {"X-Runtime", "0.029379"}, {"X-XSS-Protection", "1; mode=block"},
+           {"Vary", "Accept-Encoding"}], status_code: 200}
+    end
 
-    def successful_plans_response() do
+    defp successful_plans_response() do
         %HTTPoison.Response{
             body: "{\"has_more\":false,\"total\":2,\"object\":\"list\",\"data\":[{\"id\":\"plan_2\",\"livemode\":false,\"created_at\":1495406544,\"name\":\"1 año\",\"amount\":2000,\"currency\":\"MXN\",\"interval\":\"year\",\"frequency\":1,\"object\":\"plan\"},{\"id\":\"plan_1\",\"livemode\":false,\"created_at\":1495403266,\"name\":\"Plan 3 Meses\",\"amount\":4000,\"currency\":\"MXN\",\"interval\":\"month\",\"frequency\":3,\"object\":\"plan\"}]}",
             headers: [{"Date", "Mon, 22 May 2017 03:36:02 GMT"},

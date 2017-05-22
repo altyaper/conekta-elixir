@@ -58,3 +58,8 @@ defmodule Conekta.PlansResponse do
     defstruct has_more: nil, total: nil, object: nil, data: nil
 end
 
+defmodule Conekta.PlansFindResponse do
+    @moduledoc false
+    defstruct id: nil, livemode: nil, object: nil, frequency: nil, interval: nil, currency: nil, amount: nil, name: nil, created_at: nil
+end
+
