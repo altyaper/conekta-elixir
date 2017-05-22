@@ -14,13 +14,10 @@ defmodule ConektaTest.CustomerTest do
       expected_mock = Mocks.CustomersMock.get_mock()
 
       with_mock Client, [get_request: fn(_) -> expected_mock end] do
-
         actual = Conekta.Customers.customers()
         {:ok, content} = expected_mock
         expected_customers = {:ok, Poison.decode!(content.body, as: %CustomersResponse{})}
-
         assert actual == expected_customers
-
       end
     end
 
@@ -30,11 +27,9 @@ defmodule ConektaTest.CustomerTest do
       expected_mock = Mocks.CustomersMock.get_new_customer_response()
 
       with_mock Client, [post_request: fn(_, _) -> expected_mock end] do
-
           {:ok, created_customer} = Conekta.Customers.create(new_customer)
           assert new_customer.name == created_customer.name
           assert new_customer.email == created_customer.email
-
       end
 
     end
@@ -57,9 +52,7 @@ defmodule ConektaTest.CustomerTest do
       deleted_customer = %CustomerDeleteResponse{id: "cus_2gXHiqgGWMk8ski6t", name: "Jorge Chavez", livemode: false, email: "jorge@test.com", phone: "521234567890", object: "customer", corporate: false, created_at: 1494871026}
 
       with_mock Client, [delete_request: fn(_) -> expected_mock end] do
-
         assert Conekta.Customers.delete("cus_2gXHiqgGWMk8ski6t") == {:ok, deleted_customer}
-
       end
 
     end
@@ -71,11 +64,9 @@ defmodule ConektaTest.CustomerTest do
       expected_mock = Mocks.CustomersMock.get_update_customer_response()
 
       with_mock Client, [put_request: fn(_, _) -> expected_mock end] do
-
         {:ok, customer}= Conekta.Customers.update("cus_2gYfQ9Pzfic158LXV", updated_customer)
         assert updated_customer.name == customer.name
         assert updated_customer.email == customer.email
-
       end
 
     end
@@ -96,12 +87,20 @@ defmodule ConektaTest.CustomerTest do
         expected_mock = Mocks.CustomersMock.get_payment_sources_customer_response()
 
         with_mock Client, [get_request: fn(_) -> expected_mock end] do
-
             {:ok, content} = expected_mock
             assert {:ok, Poison.decode!(content.body, as: %Conekta.CustomerPaymentSourcesResponse{})} == Conekta.Customers.payment_sources("cus_2gZSnQGNwsSKR7c1V")
-
         end
 
+    end
+
+    test "should get customer shipping contacts" do
+
+        expected_mock = Mocks.CustomersMock.get_shipping_contacts_customer_response()
+
+        with_mock Client, [get_request: fn(_) -> expected_mock end] do
+            {:ok, content} = expected_mock
+            assert {:ok, Poison.decode!(content.body, as: %Conekta.CustomerShippingContactsResponse{})} == Conekta.Customers.shipping_contacts("cus_2gZSnQGNwsSKR7c1V")
+        end
     end
 
   end

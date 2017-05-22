@@ -6,6 +6,22 @@ defmodule Mocks.CustomersMock do
     def get_update_customer_response, do: {:ok, successful_update_customer_response()}
     def get_subscription_customer_response, do: {:ok, successful_subscription_customer_response()}
     def get_payment_sources_customer_response, do: {:ok, successful_payment_sources_customer_response()}
+    def get_shipping_contacts_customer_response, do: {:ok, successful_shipping_contacts_customer_response()}
+
+    defp successful_shipping_contacts_customer_response do
+        %HTTPoison.Response{body: "{\"has_more\":false,\"total\":1,\"object\":\"list\",\"data\":[{\"id\":\"src_2gZSnQGNwsSKR7c1X\",\"object\":\"payment_source\",\"type\":\"card\",\"created_at\":1495440885,\"last4\":\"1881\",\"bin\":\"401288\",\"exp_month\":\"12\",\"exp_year\":\"19\",\"brand\":\"VISA\",\"name\":\"Jorge Lopez\",\"parent_id\":\"cus_2gZSnQGNwsSKR7c1V\",\"default\":true}]}",
+        headers: [{"Date", "Mon, 22 May 2017 08:26:38 GMT"},
+        {"Content-Type", "application/json; charset=utf-8"},
+        {"Content-Length", "283"}, {"Connection", "keep-alive"}, {"Server", "Apache"},
+        {"Cache-Control", "max-age=0, private, must-revalidate"},
+        {"Conekta-Media-Type", "conekta-v2.0.0; format=json"},
+        {"ETag", "\"58fb6753b212178e65330fa071d6da25\""},
+        {"Strict-Transport-Security", "max-age=31536000; includeSubDomains"},
+        {"X-Content-Type-Options", "nosniff"}, {"X-Frame-Options", "SAMEORIGIN"},
+        {"X-Request-Id", "4302b608-f86e-45f9-a32e-60d0be6c3493"},
+        {"X-Runtime", "0.032998"}, {"X-XSS-Protection", "1; mode=block"},
+        {"Vary", "Accept-Encoding"}], status_code: 200}
+    end
 
     defp successful_payment_sources_customer_response do
         %HTTPoison.Response{body: "{\"has_more\":false,\"total\":1,\"object\":\"list\",\"data\":[{\"id\":\"src_2gZSnQGNwsSKR7c1X\",\"object\":\"payment_source\",\"type\":\"card\",\"created_at\":1495440885,\"last4\":\"1881\",\"bin\":\"401288\",\"exp_month\":\"12\",\"exp_year\":\"19\",\"brand\":\"VISA\",\"name\":\"Jorge Lopez\",\"parent_id\":\"cus_2gZSnQGNwsSKR7c1V\",\"default\":true}]}",
