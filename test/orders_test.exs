@@ -62,6 +62,11 @@ defmodule ConektaTest.OrdersTest do
 
     end
 
+
+  end
+
+  describe "Charges" do
+    
     test "should get charges of an order" do
 
         expected_mock = Mocks.OrdersMock.get_charges_order_response()
@@ -73,6 +78,14 @@ defmodule ConektaTest.OrdersTest do
 
     end
 
+    test "create a charge for an order" do
+
+
+      charge = %Conekta.Charge{amount: 2000, payment_method: %{type: "default"}}
+      Conekta.Orders.create_charge("ord_2gZfB4cFxmJDF7fNF", charge)
+
+    end
+    
   end
 
 end

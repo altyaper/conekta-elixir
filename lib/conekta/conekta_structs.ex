@@ -133,3 +133,13 @@ defmodule Conekta.CustomerDeleteShippingContactResponse do
     @moduledoc false
     defstruct receiver: nil, phone: nil, between_streets: nil, address: nil, id: nil, object: nil, created_at: nil, parent_id: nil, default: nil, deleted: nil
 end
+
+defmodule Conekta.Charge do
+    @moduledoc false
+    defstruct amount: nil, payment_method: nil, expires_at: nil, token_id: nil
+end
+
+defmodule Conekta.OrderCreateChargeResponse do
+    @moduledoc false
+    defstruct amount: nil
+end

@@ -13,6 +13,7 @@ defmodule Conekta.Orders do
     alias Conekta.OrdersCreateResponse
     alias Conekta.OrdersFindResponse
     alias Conekta.OrderChargesResponse
+    alias Conekta.OrderCreateChargeResponse
 
     @doc """
     Get all the current orders
@@ -94,6 +95,23 @@ defmodule Conekta.Orders do
         {:ok, content} ->
             body = Handler.handle_status_code(content)
             {:ok, Poison.decode!(body, as: %OrderChargesResponse{})}
+      end
+    end
+
+    @doc """
+    Creates a new charge for an existing order.
+
+    **Method**: `POST`
+
+        Conekta.Orders.create_charge(order_id, charge)
+        # => { :ok, %Conekta.OrderCreateChargeResponse{}}
+    """
+    def create_charge(order_id, charge) do
+      case Client.post_request("orders/" <> order_id <> "/charges", charge) do
+        {:ok, content} ->
+            IO.inspect(content)
+            body = Handler.handle_status_code(content)
+            {:ok, Poison.decode!(body, as: %OrderCreateChargeResponse{})}
       end
     end
 
