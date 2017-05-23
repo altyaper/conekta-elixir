@@ -137,6 +137,34 @@ defmodule ConektaTest.CustomerTest do
                 assert {:ok, Poison.decode!(content.body, as: %Conekta.CustomerCreateShippingContactResponse{})} == Conekta.Customers.create_shipping_contact("cus_2gZSnQGNwsSKR7c1V", new_shipping_contact)
             end
         end
+
+        test "should update shipping contact" do
+
+
+            expected_mock = Mocks.CustomersMock.get_update_shipping_contact_customer_response()
+            shipping_contact = %Conekta.ShippingContact{phone: "6141179192", receiver: "Jorge Receiver", between_streets: "Jose Maria y Pedro Dominguez", address: %{street1: "Hacienda", postal_code: "31140", country: "MXN"}}
+
+            with_mock Client, [put_request: fn(_,_) -> expected_mock end] do
+
+                {:ok, content} = expected_mock
+                assert {:ok, Poison.decode!(content.body, as: %Conekta.CustomerUpdateShippingContactResponse{})} == Conekta.Customers.update_shipping_contact("cus_2gZfB4cFxmJDSyYRu","ship_cont_2gZiUwFmAvZMNSkDV", shipping_contact)
+
+            end
+
+        end
+
+        test "should delete shipping contact" do
+
+            expected_mock = Mocks.CustomersMock.get_delete_shipping_contact_customer_response()
+
+            with_mock Client, [delete_request: fn(_) -> expected_mock end] do
+
+                {:ok, content} = expected_mock
+                assert {:ok, Poison.decode!(content.body, as: %Conekta.CustomerDeleteShippingContactResponse{})} == Conekta.Customers.delete_shipping_contact("cus_2gZfB4cFxmJDSyYRu", "ship_cont_2gZiUwFmAvZMNSkDV")
+
+            end
+
+        end
   end
 
 end

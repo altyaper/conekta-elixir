@@ -123,3 +123,13 @@ defmodule Conekta.ShippingContact do
     @moduledoc false
     defstruct phone: nil, receiver: nil, between_streets: nil, address: %{street1: nil, postal_code: nil, country: nil}
 end
+
+defmodule Conekta.CustomerUpdateShippingContactResponse do
+    @moduledoc false
+    defstruct receiver: nil, phone: nil, between_streets: nil, address: nil, id: nil, object: nil, created_at: nil, parent_id: nil, default: nil
+end
+
+defmodule Conekta.CustomerDeleteShippingContactResponse do
+    @moduledoc false
+    defstruct receiver: nil, phone: nil, between_streets: nil, address: nil, id: nil, object: nil, created_at: nil, parent_id: nil, default: nil, deleted: nil
+end

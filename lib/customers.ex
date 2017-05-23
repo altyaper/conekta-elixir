@@ -20,6 +20,8 @@ defmodule Conekta.Customers do
     alias Conekta.CustomerCreatePaymentSourceResponse
     alias Conekta.CustomerDeletePaymentSourceResponse
     alias Conekta.CustomerCreateShippingContactResponse
+    alias Conekta.CustomerUpdateShippingContactResponse
+    alias Conekta.CustomerDeleteShippingContactResponse
 
 
     @doc """
@@ -203,11 +205,45 @@ defmodule Conekta.Customers do
         # => { :ok, %Conekta.CustomerCreateShippingContactResponse{}}
     """
     def create_shipping_contact(client_id, shipping_contact) do
-      case Client.post_request("customers/" <> client_id <> "/shipping_contacts", shipping_contact) do
-        {:ok, content} ->
-            body = Handler.handle_status_code(content)
-            {:ok, Poison.decode!(body, as: %CustomerCreateShippingContactResponse{})}
-      end
+        case Client.post_request("customers/" <> client_id <> "/shipping_contacts", shipping_contact) do
+            {:ok, content} ->
+                body = Handler.handle_status_code(content)
+                {:ok, Poison.decode!(body, as: %CustomerCreateShippingContactResponse{})}
+        end
+    end
+
+    @doc """
+    Update shipping contact for a customer
+    [Conekta Documenation](https://developers.conekta.com/api?language=bash#update-shipping-contact)
+
+    **Method**: `PUT`
+
+        Conekta.Customers.update_shipping_contact(client_id, shipping_contact_id, %Conekta.ShippingContact{})
+        # => { :ok, %Conekta.CustomerUpdateShippingContactResponse{}}
+    """
+    def update_shipping_contact(client_id, shipping_contact_id, shipping_contact) do
+        case Client.put_request("customers/" <> client_id <> "/shipping_contacts/" <> shipping_contact_id, shipping_contact) do
+            {:ok, content} ->
+                body = Handler.handle_status_code(content)
+                {:ok, Poison.decode!(body, as: %CustomerUpdateShippingContactResponse{})}
+        end
+    end
+
+    @doc """
+    Delete a shipping contact from a customer
+    [Conekta Documenation](https://developers.conekta.com/api?language=bash#delete-shipping-contact)
+
+    **Method**: `DELETE`
+
+        Conekta.Customers.delete_shipping_contact(client_id, shipping_contact_id)
+        # => { :ok, %Conekta.CustomerDeleteShippingContactResponse{}}
+    """
+    def delete_shipping_contact(client_id, shipping_contact_id) do
+        case Client.delete_request("customers/" <> client_id <> "/shipping_contacts/" <> shipping_contact_id) do
+            {:ok, content} ->
+                body = Handler.handle_status_code(content)
+                {:ok, Poison.decode!(body, as: %CustomerDeleteShippingContactResponse{})}
+        end
     end
 
 end

@@ -10,7 +10,38 @@ defmodule Mocks.CustomersMock do
     def get_create_payment_source_customer_response, do: {:ok, successful_create_payment_source_customer_response()}
     def get_delete_payment_source_customer_response, do: {:ok, successful_delete_payment_source_customer_response()}
     def get_create_shipping_contact_customer_response, do: {:ok, successful_create_shipping_contact_customer_response()}
+    def get_update_shipping_contact_customer_response, do: {:ok, successful_update_shipping_contact_customer_response()}
+    def get_delete_shipping_contact_customer_response, do: {:ok, successful_delete_shipping_contact_customer_response()}
 
+    defp successful_delete_shipping_contact_customer_response do
+        %HTTPoison.Response{body: "{\"receiver\":\"Jorge Receiver\",\"phone\":\"6141179192\",\"between_streets\":\"Jose Maria y Pedro Dominguez\",\"address\":{\"street1\":\"Hacienda\",\"street2\":\"Hacienda\",\"city\":\"Chihuahua\",\"state\":\"Chihuahua\",\"residential\":true,\"object\":\"shipping_address\",\"postal_code\":\"31140\"},\"id\":\"ship_cont_2gZiUwFmAvZMNSkDV\",\"object\":\"shipping_contact\",\"created_at\":1495512419,\"parent_id\":\"cus_2gZfB4cFxmJDSyYRu\",\"default\":true,\"deleted\":true}",
+         headers: [{"Date", "Tue, 23 May 2017 04:30:48 GMT"},
+          {"Content-Type", "application/json; charset=utf-8"},
+          {"Content-Length", "414"}, {"Connection", "keep-alive"}, {"Server", "Apache"},
+          {"Cache-Control", "max-age=0, private, must-revalidate"},
+          {"Conekta-Media-Type", "conekta-v2.0.0; format=json"},
+          {"ETag", "\"c24b61e903f73b8e53c983baec7cf715\""},
+          {"Strict-Transport-Security", "max-age=31536000; includeSubDomains"},
+          {"X-Content-Type-Options", "nosniff"}, {"X-Frame-Options", "SAMEORIGIN"},
+          {"X-Request-Id", "366a4f98-6467-4424-b8dc-9c4f454c38b1"},
+          {"X-Runtime", "0.062998"}, {"X-XSS-Protection", "1; mode=block"},
+          {"Vary", "Accept-Encoding"}], status_code: 200}
+    end
+
+    defp successful_update_shipping_contact_customer_response do
+        %HTTPoison.Response{body: "{\"receiver\":\"Jorge Receiver\",\"phone\":\"6141179192\",\"between_streets\":\"Jose Maria y Pedro Dominguez\",\"address\":{\"street1\":\"Hacienda\",\"street2\":\"Hacienda\",\"city\":\"Chihuahua\",\"state\":\"Chihuahua\",\"residential\":true,\"object\":\"shipping_address\",\"postal_code\":\"31140\"},\"id\":\"ship_cont_2gZiUwFmAvZMNSkDV\",\"object\":\"shipping_contact\",\"created_at\":1495512419,\"parent_id\":\"cus_2gZfB4cFxmJDSyYRu\",\"default\":true}",
+         headers: [{"Date", "Tue, 23 May 2017 04:15:13 GMT"},
+          {"Content-Type", "application/json; charset=utf-8"},
+          {"Content-Length", "399"}, {"Connection", "keep-alive"}, {"Server", "Apache"},
+          {"Cache-Control", "max-age=0, private, must-revalidate"},
+          {"Conekta-Media-Type", "conekta-v2.0.0; format=json"},
+          {"ETag", "\"ff4e4d79c14170365aefb8f825b1b2fd\""},
+          {"Strict-Transport-Security", "max-age=31536000; includeSubDomains"},
+          {"X-Content-Type-Options", "nosniff"}, {"X-Frame-Options", "SAMEORIGIN"},
+          {"X-Request-Id", "1ca1bcc8-4d32-4c1e-a6d3-3ba2a5056fe4"},
+          {"X-Runtime", "0.060003"}, {"X-XSS-Protection", "1; mode=block"},
+          {"Vary", "Accept-Encoding"}], status_code: 200}
+    end
 
     defp successful_create_shipping_contact_customer_response do
       %HTTPoison.Response{body: "{\"receiver\":\"Jorge Receiver\",\"phone\":\"6141179192\",\"between_streets\":\"Jose Maria y Pedro Dominguez\",\"address\":{\"street1\":\"Hacienda\",\"residential\":true,\"object\":\"shipping_address\",\"postal_code\":\"31140\"},\"id\":\"ship_cont_2gZZUHLY5yz7tetRe\",\"object\":\"shipping_contact\",\"created_at\":1495471358,\"parent_id\":\"cus_2gZSnQGNwsSKR7c1V\",\"default\":false}",
