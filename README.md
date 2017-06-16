@@ -7,7 +7,7 @@ Wrapper to connect with https://api.conekta.io.
 
 ## Setup
 
-##Installation
+### Installation
 
 Add Conekta to your `mix.exs` dependencies:
 
