@@ -28,12 +28,27 @@ defmodule ConektaTest.ClientTest do
           customer_info: %{
               customer_id: "cus_2gXnQrxEpkdNfeeFT"
           },
+          shipping_lines: [
+            %{
+              amount:  10000,
+              carrier: "Fake Carrier"
+            }
+          ],
+          shipping_contact: %{
+            phone: "1234567890",
+            address: %{
+              street1: "Fake Address",
+              postal_code: "00000",
+              country: "Country"
+            }
+          },
           line_items: [%{
               name: "Testing",
               unit_price: 35000,
               quantity: 1
           }],
           charges: [%{
+              amount: 45000,
               payment_method: %{
                   type: "default"
               }
