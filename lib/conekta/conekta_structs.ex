@@ -30,7 +30,7 @@ end
 
 defmodule Conekta.Order do
     @moduledoc false
-    defstruct currency: nil, customer_info: nil, line_items: nil, charges: nil
+    defstruct currency: nil, customer_info: nil, line_items: nil, charges: nil, shipping_lines: nil, shipping_contact: nil
 end
 
 defmodule Conekta.OrdersResponse do
@@ -87,4 +87,3 @@ defmodule Conekta.CustomerPaymentSourcesResponse do
     @moduledoc false
     defstruct has_more: nil, total: nil, object: nil, data: nil
 end
-
