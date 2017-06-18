@@ -5,8 +5,22 @@ Wrapper to connect with https://api.conekta.io.
 
 [conekta-elixir documentation](https://hexdocs.pm/conekta/api-reference.html)
 
-
 ## Setup
+
+### Installation
+
+Add Conekta to your `mix.exs` dependencies:
+
+```elixir
+#mix.exs
+defp deps do
+  [
+    #If you have troubles with poison add
+    #{:poison, "~> 3.1", override: true}
+    {:conekta, "~> 1.0"}
+  ]
+end
+```
 
 ### Configuration
 Add your keys in your `config.exs` file
