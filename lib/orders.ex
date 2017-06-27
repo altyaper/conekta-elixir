@@ -55,7 +55,7 @@ defmodule Conekta.Orders do
 
     **Method**: `GET`
 
-        Conekta.Orders.find(client_id)
+        Conekta.Orders.find(order_id)
         # => { :ok, %Conekta.OrdersFindResponse{}}
     """
     def find(order_id) do
@@ -109,7 +109,6 @@ defmodule Conekta.Orders do
     def create_charge(order_id, charge) do
       case Client.post_request("orders/" <> order_id <> "/charges", charge) do
         {:ok, content} ->
-            IO.inspect(content)
             body = Handler.handle_status_code(content)
             {:ok, Poison.decode!(body, as: %OrderCreateChargeResponse{})}
       end
