@@ -66,7 +66,7 @@ defmodule ConektaTest.OrdersTest do
   end
 
   describe "Charges" do
-    
+
     test "should get charges of an order" do
 
         expected_mock = Mocks.OrdersMock.get_charges_order_response()
@@ -76,16 +76,8 @@ defmodule ConektaTest.OrdersTest do
             assert Poison.decode(content.body, as: %Conekta.OrderChargesResponse{}) == Conekta.Orders.charges("ord_2gZSnR1CU4zy3PGVz")
         end
 
-    end
+    end    
 
-    test "create a charge for an order" do
-
-
-      charge = %Conekta.Charge{amount: 2000, payment_method: %{type: "default"}}
-      Conekta.Orders.create_charge("ord_2gZfB4cFxmJDF7fNF", charge)
-
-    end
-    
   end
 
 end
