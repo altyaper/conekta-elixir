@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/echavezNS/conekta-elixir.svg?branch=master)](https://travis-ci.org/echavezNS/conekta-elixir)
+
 # Conekta Library
 
 
