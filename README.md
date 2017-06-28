@@ -17,7 +17,7 @@ Add Conekta to your `mix.exs` dependencies:
 #mix.exs
 defp deps do
   [
-    #If you have troubles with poison add
+    #If you have trouble with poison add
     #{:poison, "~> 3.1", override: true}
     {:conekta, "~> 1.0"}
   ]
@@ -38,7 +38,7 @@ config :conekta,
 ## Customers
 
 ### Get
-Get all the current customers
+Get all current customers
 ```elixir
 #Get the last
 Conekta.Customers.customers()
@@ -107,7 +107,7 @@ response = Conekta.Orders.create(new_order)
 ```
 
 ## Test
-If you want to add something new, make sure all the tests passes before making a PR
+If you want to add something new, make sure all the tests pass before making a PR
 ```elixir
 mix test
 ```
