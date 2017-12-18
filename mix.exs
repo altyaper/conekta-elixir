@@ -10,7 +10,7 @@ defmodule Conekta.Mixfile do
      version: "1.0.6",
      description: @description,
      name: "Conekta",
-     elixir: "~> 1.4.2",
+     elixir: "~> 1.4",
      package: package(),
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -24,7 +24,7 @@ defmodule Conekta.Mixfile do
 
   defp deps do
     [{:credo, "~> 0.6", only: [ :dev, :test ], runtime: false, override: true},
-     {:httpoison, "~> 0.11.1"},
+     {:httpoison, "~> 0.13"},
      {:poison, "~> 3.0"},
      {:mock, "~> 0.2.0", only: :test},
      {:ex_doc, ">= 0.0.0", only: :dev}]
