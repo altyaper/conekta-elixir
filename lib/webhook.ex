@@ -17,9 +17,9 @@ defmodule Conekta.WebHook do
 	defp cast_data(type, data) do
 		case type do
       	"charge.created" -> 
-      		{:charge_created, struct(Conekta.ChargeWebHookPost, data.object)}
-      	"charge.created" -> 
-      	  struct(Conekta.ChargeWebHookPost, data)
+      	  {:charge_created, struct(Conekta.ChargeWebHookPost, data.object)}
+      	"charge.paid" -> 
+      	  {:charge_paid, struct(Conekta.ChargeWebHookPost, data.object)}
       end
 	end
 
