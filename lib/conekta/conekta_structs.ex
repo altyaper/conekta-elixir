@@ -134,6 +134,11 @@ defmodule Conekta.CustomerDeleteShippingContactResponse do
     defstruct receiver: nil, phone: nil, between_streets: nil, address: nil, id: nil, object: nil, created_at: nil, parent_id: nil, default: nil, deleted: nil
 end
 
+defmodule Conekta.ChargeWebHookPost do
+    @moduledoc false
+    defstruct id: nil, livemode: nil, created_at: nil, status: nil, currency: nil, description: nil, failure_code: nil, failure_message: nil, monthly_installments: nil, object: nil, paid_at: nil, fee: nil, customer_id: nil, refunds: nil, amount: nil, previous_attributes: nil, payment_method: nil, expires_at: nil, token_id: nil
+end
+
 defmodule Conekta.Charge do
     @moduledoc false
     defstruct amount: nil, payment_method: nil, expires_at: nil, token_id: nil
