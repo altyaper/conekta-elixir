@@ -103,6 +103,10 @@ defmodule Conekta.CustomerCreatePaymentSourceResponse do
     defstruct id: nil, object: nil, type: nil, created_at: nil, last4: nil, bin: nil, exp_month: nil, exp_year: nil, brand: nil, name: nil, parent_id: nil, default: nil
 end
 
+defmodule Conekta.ChargebackWebhookPost do
+    @moduledoc false
+    defstruct id: nil, object: nil, status: nil, reason: nil, note: nil, followup_status: nil, response_from_client: nil, charge_id: nil, created_at: nil, evidence_due_by: nil, filed: nil, previous_attributes: nil
+end
 
 defmodule Conekta.CustomerShippingContactsResponse do
     @moduledoc false
@@ -134,6 +138,16 @@ defmodule Conekta.CustomerDeleteShippingContactResponse do
     defstruct receiver: nil, phone: nil, between_streets: nil, address: nil, id: nil, object: nil, created_at: nil, parent_id: nil, default: nil, deleted: nil
 end
 
+defmodule Conekta.ChargeWebHookPost do
+    @moduledoc false
+    defstruct id: nil, livemode: nil, created_at: nil, status: nil, currency: nil, description: nil, failure_code: nil, failure_message: nil, monthly_installments: nil, object: nil, paid_at: nil, fee: nil, customer_id: nil, refunds: nil, amount: nil, previous_attributes: nil, payment_method: nil, expires_at: nil, token_id: nil
+end
+
+defmodule Conekta.CustomerWebHookPost do
+    @moduledoc false
+    defstruct id: nil, email: nil, name: nil, phone: nil, livemode: nil, default_card_id: nil, object: nil, created_at: nil, cards: nil, subscription: nil
+end
+
 defmodule Conekta.Charge do
     @moduledoc false
     defstruct amount: nil, payment_method: nil, expires_at: nil, token_id: nil
@@ -142,4 +156,9 @@ end
 defmodule Conekta.OrderCreateChargeResponse do
     @moduledoc false
     defstruct amount: nil
+end
+
+defmodule Conekta.WebHookLogs do
+    @moduledoc false
+    defstruct id: nil, url: nil, failed_attempts: nil, last_http_response_status: nil, object: nil, last_attempted_at: nil
 end
