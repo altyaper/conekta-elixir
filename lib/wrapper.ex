@@ -13,11 +13,15 @@ defmodule Conekta.Wrapper do
 
     def headers do
         basic_auth = "Basic " <> Base.encode64(key() <> ":")
-        ["Accept": @conekta_accept_header, "Content-type": "application/json", "Authorization": basic_auth]
+        ["Accept": @conekta_accept_header, "Accept-Language": locale(),"Content-type": "application/json", "Authorization": basic_auth]
     end
 
     def key do
         Application.get_env(:conekta, :privatekey)
+    end
+
+    def locale do
+        Application.get_env(:conekta, :locale)
     end
 
 end
