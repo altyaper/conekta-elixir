@@ -2,4 +2,5 @@ use Mix.Config
 
 config :conekta,
   publickey: "PUBLIC",
-  privatekey: "PRIVATE"
+  privatekey: "PRIVATE",
+  locale: "es"
