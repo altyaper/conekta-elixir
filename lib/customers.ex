@@ -246,4 +246,11 @@ defmodule Conekta.Customers do
         end
     end
 
+    def refund(order_id, refund) do
+        case Client.post_request("orders/" <> order_id <> "/refunds", refund) do
+          {:ok, content} ->
+              body = Handler.handle_status_code(content)
+              {:ok, Poison.decode!(body)}
+        end
+    end
 end

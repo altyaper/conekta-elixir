@@ -162,3 +162,8 @@ defmodule Conekta.WebHookLogs do
     @moduledoc false
     defstruct id: nil, url: nil, failed_attempts: nil, last_http_response_status: nil, object: nil, last_attempted_at: nil
 end
+
+defmodule Conekta.Refund do
+    @moduledoc false
+    defstruct reason: nil
+end
