@@ -165,5 +165,10 @@ end
 
 defmodule Conekta.Refund do
     @moduledoc false
+    defstruct reason: nil
+end
+
+defmodule Conekta.PartialRefund do
+    @moduledoc false
     defstruct reason: nil, amount: nil
 end
