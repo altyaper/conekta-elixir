@@ -24,9 +24,9 @@ defmodule Conekta.Mixfile do
 
   defp deps do
     [{:credo, "~> 0.6", only: [ :dev, :test ], runtime: false, override: true},
-     {:httpoison, "~> 0.11"},
+     {:httpoison, "~> 1.2.0"},
      {:poison, "~> 3.0"},
-     {:mock, "~> 0.2.0", only: :test},
+     {:mock, "~> 0.3.0", only: :test},
      {:ex_doc, ">= 0.0.0", only: :dev}]
   end
 
