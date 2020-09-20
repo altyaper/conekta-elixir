@@ -13,7 +13,7 @@ defmodule Conekta.Wrapper do
 
     def headers do
         basic_auth = "Basic " <> Base.encode64(key() <> ":")
-        ["Accept": accept_header(), "Accept-Language": locale(),"Content-type": "application/json", "Authorization": basic_auth]
+        ["Accept": accept_header(), "Accept-Language": locale(), "Content-type": "application/json", "Authorization": basic_auth]
     end
 
     def accept_header do

@@ -1,6 +1,5 @@
-defmodule Conekta.WebHook do
-	
-	@moduledoc """
+defmodule Conekta.WebHook do	
+  @moduledoc """
       Easy handling of Conekta WebHooks.
 
       Cast data into their corresponding struct.
@@ -34,29 +33,29 @@ defmodule Conekta.WebHook do
 
         # => { :chargeback_lost, %Conekta.ChargebackWebhookPost{}}
     """
-    def received(params, opts \\ :none)
+  def received(params, opts \\ :none)
 
-	def received(%{"data" => data, 
-				   "livemode" => _livemode, 
-				   "webhook_status" => _status, 
-				   "id" => _id,
-				   "object" => _object,
-				   "type" => type,
-				   "created_at" => _created_at,
-				   "webhook_logs" => logs}, opts) do
-	  params = Map.new(data, &atomify/1)
-	  if opts == :logs do
-	  	logs = Enum.map(logs, fn log -> Map.new(log, &atomify/1) end)
-	  	Tuple.insert_at(cast_data(type, params), 2, cast_logs(logs))
-	  else
-	  	cast_data(type, params)
-	  end
+  def received(%{"data" => data, 
+          "livemode" => _livemode, 
+          "webhook_status" => _status, 
+          "id" => _id,
+          "object" => _object,
+          "type" => type,
+          "created_at" => _created_at,
+          "webhook_logs" => logs}, opts) do
+    params = Map.new(data, &atomify/1)
+    if opts == :logs do
+      logs = Enum.map(logs, fn log -> Map.new(log, &atomify/1) end)
+      Tuple.insert_at(cast_data(type, params), 2, cast_logs(logs))
+    else
+      cast_data(type, params)
     end
+  end
 
-	def received(_params, _opts), do: {:error, "Invalid params"}
+  def received(_params, _opts), do: {:error, "Invalid params"}
 
-	defp cast_data(type, data) do
-		case type do
+  defp cast_data(type, data) do
+    case type do
       	"charge.created" -> 
       	  {:charge_created, struct(Conekta.ChargeWebHookPost, data.object)}
       	"charge.paid" -> 
@@ -77,11 +76,11 @@ defmodule Conekta.WebHook do
       	  {:chargeback_lost, struct(Conekta.ChargebackWebhookPost, data.object)}
       	_ -> {:error, "Unrecognized object type."}
       end
-	end
+  end
 
-	defp cast_logs(logs), do: Enum.map(logs, fn log -> struct(Conekta.WebHookLogs, log) end)
+  defp cast_logs(logs), do: Enum.map(logs, fn log -> struct(Conekta.WebHookLogs, log) end)
 
-	defp atomify({k, v}) when is_binary(k) and is_map(v),
+  defp atomify({k, v}) when is_binary(k) and is_map(v),
     do: {String.to_atom(k), Map.new(v, &atomify/1)}
     defp atomify({k, v}) when is_binary(k) and is_list(v),
     do: {String.to_atom(k), Enum.map(v, fn v -> Map.new(v, &atomify/1) end)}

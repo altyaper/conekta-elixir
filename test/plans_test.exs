@@ -34,7 +34,7 @@ defmodule ConektaTest.PlansTest do
             plan = %Conekta.Plan{name: "Otro plan"}
             expected_mock = Mocks.PlansMock.get_update_mock()
 
-            with_mock Client, [put_request: fn(_,_) -> expected_mock end] do
+            with_mock Client, [put_request: fn(_, _) -> expected_mock end] do
                 {:ok, content} = expected_mock
                 assert Poison.decode(content.body, as: %Conekta.PlanUpdateResponse{}) == Conekta.Plans.update("plan_2", plan)
             end

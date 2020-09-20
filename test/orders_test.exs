@@ -29,7 +29,7 @@ defmodule ConektaTest.OrdersTest do
             },
             line_items: [%{
                 name: "Testing",
-                unit_price: 35000,
+                unit_price: 35_000,
                 quantity: 1
             }],
             charges: [%{
@@ -42,7 +42,7 @@ defmodule ConektaTest.OrdersTest do
 
         expected_mock = Mocks.OrdersMock.get_new_order_response()
 
-        with_mock Conekta.Client, [post_request: fn(_url,_params) -> expected_mock end] do
+        with_mock Conekta.Client, [post_request: fn(_url, _params) -> expected_mock end] do
 
             {:ok, content} = expected_mock
             assert Poison.decode(content.body, as: %Conekta.OrdersCreateResponse{}) == Conekta.Orders.create(new_order)

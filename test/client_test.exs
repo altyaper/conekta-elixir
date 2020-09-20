@@ -30,7 +30,7 @@ defmodule ConektaTest.ClientTest do
           },
           shipping_lines: [
             %{
-              amount:  10000,
+              amount:  10_000,
               carrier: "Fake Carrier"
             }
           ],
@@ -44,11 +44,11 @@ defmodule ConektaTest.ClientTest do
           },
           line_items: [%{
               name: "Testing",
-              unit_price: 35000,
+              unit_price: 35_000,
               quantity: 1
           }],
           charges: [%{
-              amount: 45000,
+              amount: 45_000,
               payment_method: %{
                   type: "default"
               }
