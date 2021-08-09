@@ -2,6 +2,7 @@ defmodule Mocks.OrdersMock do
     @moduledoc false
     def get_mock, do: {:ok, successful_response()}
     def get_new_order_response, do: {:ok, successful_new_order_response()}
+    def get_new_order_for_oxxo_cash_response, do: {:ok, successful_new_order_for_oxxo_cash_response()}
     def get_find_order_response, do: {:ok, successful_find_order_response()}
     def get_charges_order_response, do: {:ok, successful_charges_order_response()}
 
@@ -56,7 +57,26 @@ defmodule Mocks.OrdersMock do
             {"Strict-Transport-Security", "max-age=31536000;"}],
             status_code: 200
         }
-      end
+    end
+
+    defp successful_new_order_for_oxxo_cash_response do
+      %HTTPoison.Response{
+        body: "{\"livemode\":false,\"amount\":35000,\"currency\":\"MXN\",\"payment_status\":\"pending_payment\",\"amount_refunded\":0,\"customer_info\":{\"email\":\"jorge@test.com\",\"phone\":\"521234342345\",\"name\":\"Juan\",\"corporate\":false,\"customer_id\":\"cus_2gXnQrxEpkdNfeeFT\",\"object\":\"customer_info\"},\"object\":\"order\",\"id\":\"ord_2gYytiLHqMUfZcBZ6\",\"metadata\":{},\"created_at\":1495318352,\"updated_at\":1495318359,\"line_items\":{\"object\":\"list\",\"has_more\":false,\"total\":1,\"data\":[{\"name\":\"Testing\",\"unit_price\":35000,\"quantity\":1,\"object\":\"line_item\",\"id\":\"line_item_2gYytiLHqMUfZcBZ4\",\"parent_id\":\"ord_2gYytiLHqMUfZcBZ6\",\"metadata\":{},\"antifraud_info\":{}}]},\"charges\":{\"object\":\"list\",\"has_more\":false,\"total\":1,\"data\":[{\"id\":\"5920bf50b795b03ad73384a9\",\"livemode\":false,\"created_at\":1495318352,\"currency\":\"MXN\",\"device_fingerprint\":\"ou2zfmjluaw63nfvhr847va8i19cesjv\",\"payment_method\":{\"type\":\"oxxo_cash\",\"expires_at\":\"1599661683\"},\"object\":\"charge\",\"description\":\"Payment from order\",\"status\":\"pending_payment\",\"amount\":35000,\"paid_at\":1495318359,\"fee\":1467,\"customer_id\":\"cus_2gXnQrxEpkdNfeeFT\",\"order_id\":\"ord_2gYytiLHqMUfZcBZ6\"}]}}",
+        headers: [{"Server", "nginx"}, {"Date", "Thu, 21 Jul 2016 16:52:38 GMT"},
+          {"Content-Type", "application/json"}, {"Content-Length", "397"},
+          {"Connection", "keep-alive"}, {"Keep-Alive", "timeout=10"},
+          {"Vary", "Accept-Encoding"}, {"Vary", "Accept-Encoding"},
+          {"X-UA-Compatible", "IE=edge"}, {"X-Frame-Options", "deny"},
+          {"Content-Security-Policy",
+            "default-src 'self'; script-src 'self' foo"},
+          {"X-Content-Security-Policy",
+            "default-src 'self'; script-src 'self' foo"},
+          {"Cache-Control", "no-cache, no-store, must-revalidate"},
+          {"Pragma", "no-cache"}, {"X-Content-Type-Options", "nosniff"},
+          {"Strict-Transport-Security", "max-age=31536000;"}],
+          status_code: 200
+      }
+    end
 
   defp successful_response do
 
