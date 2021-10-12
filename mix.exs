@@ -19,13 +19,13 @@ defmodule Conekta.Mixfile do
   end
 
   def application do
-    [applications: [:httpoison, :logger]]
+    [extra_applications: [:logger]]
   end
 
   defp deps do
     [{:credo, "~> 1.4", only: [:dev, :test], runtime: false},
      {:httpoison, "~> 1.6"},
-     {:poison, "~> 3.1"},
+     {:poison, "~> 5.0"},
      {:mock, "~> 0.3.0", only: :test},
      {:ex_doc, "~> 0.22", only: :dev, runtime: false}]
   end
