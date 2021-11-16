@@ -1,7 +1,7 @@
 use Mix.Config
 
 config :conekta,
-  publickey: "PUBLIC",
-  privatekey: "PRIVATE",
+  public_key: "PUBLIC",
+  private_key: "PRIVATE",
   locale: "es",
-  apiversion: "2.0.0"
+  api_version: "2.0.0"

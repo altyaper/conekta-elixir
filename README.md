@@ -1,7 +1,4 @@
-[![Build Status](https://travis-ci.org/echavezNS/conekta-elixir.svg?branch=master)](https://travis-ci.org/echavezNS/conekta-elixir)
-
 # Conekta Library
-
 
 Wrapper to connect with https://api.conekta.io.
 
@@ -17,8 +14,6 @@ Add Conekta to your `mix.exs` dependencies:
 #mix.exs
 defp deps do
   [
-    #If you have trouble with poison add
-    #{:poison, "~> 3.1", override: true}
     {:conekta, "~> 1.0"}
   ]
 end
@@ -30,8 +25,8 @@ Add your keys in your `config.exs` file
 ```elixir
 # config.exs
 config :conekta,
-  publickey: "YOUR-PUBLIC-KEY",
-  privatekey: "YOUR-PRIVATE-KEY"
+  public_key: "YOUR-PUBLIC-KEY",
+  private_key: "YOUR-PRIVATE-KEY"
 
 ```
 
@@ -137,4 +132,8 @@ Fork from **dev** and do a PR into **dev** again.
 
 ### License
 
-Developed by [Jorge Chavez](https://twitter.com/JorgeChavz). Available with [MIT License](https://github.com/echavezNS/conekta-elixir/blob/master/LICENSE).
+Developed by [Jorge Chavez](https://twitter.com/JorgeChavz). 
+
+Available with [MIT License](https://github.com/echavezNS/conekta-elixir/blob/master/LICENSE).
+
+Maintainer of this fork: [Ventup](https://github.com/Ventup-IT)

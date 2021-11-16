@@ -21,7 +21,7 @@ defmodule Conekta.Wrapper do
     end
 
     def key do
-        Application.get_env(:conekta, :privatekey)
+        Application.get_env(:conekta, :private_key)
     end
 
     def locale do
@@ -29,6 +29,6 @@ defmodule Conekta.Wrapper do
     end
 
     def api_version do
-        Application.get_env(:conekta, :apiversion)
+        Application.get_env(:conekta, :api_version)
     end
 end
