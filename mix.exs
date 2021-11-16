@@ -7,15 +7,15 @@ defmodule Conekta.Mixfile do
 
   def project do
     [app: :conekta,
-     version: "1.1.0",
+     version: "1.2.0",
      description: @description,
      name: "Conekta",
-     elixir: "~> 1.10.4",
+     elixir: "~> 1.12.3",
      package: package(),
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps(),
-     source_url: "https://github.com/echavezNS/conekta-elixir.git"]
+     source_url: "https://github.com/Ventup-IT/conekta-elixir"]
   end
 
   def application do
@@ -25,15 +25,14 @@ defmodule Conekta.Mixfile do
   defp deps do
     [{:credo, "~> 1.4", only: [:dev, :test], runtime: false},
      {:httpoison, "~> 1.6"},
-     {:poison, "~> 3.1"},
+     {:poison, "~> 4.0"},
      {:mock, "~> 0.3.0", only: :test},
      {:ex_doc, "~> 0.22", only: :dev, runtime: false}]
   end
 
   defp package do
-    [ maintainers: ["Jorge Chavez"],
+    [ maintainers: ["VentUp"],
       licenses: ["MIT"],
-      links: %{"Github" => "https://github.com/echavezNS/conekta-elixir.git"} ]
+      links: %{"Github" => "https://github.com/Ventup-IT/conekta-elixir.git"} ]
   end
-
 end
