@@ -21,12 +21,17 @@ defmodule Conekta.Mixfile do
   end
 
   def application do
-    [applications: [:httpoison, :logger], extra_applications: [:poison]]
+    [
+      applications: [:dotenv, :httpoison, :logger],
+      extra_applications: [:poison]
+    ]
   end
 
   defp deps do
     [
+      {:certifi, "~> 2.6.1"},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:hackney, "~> 1.17.4"},
       {:httpoison, "~> 1.6"},
       {:poison, "~> 4.0"},
       {:mock, "~> 0.3.0", only: :test},
