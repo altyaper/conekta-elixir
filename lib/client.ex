@@ -11,7 +11,7 @@ defmodule Conekta.Client do
   end
 
   def post_request(url, params) do
-    post(url, encode_params(params), [], [timeout: 150_000, recv_timeout: 150_000])
+    post(url, encode_params(params), [], timeout: 150_000, recv_timeout: 150_000)
   end
 
   def delete_request(url) do
@@ -32,15 +32,14 @@ defmodule Conekta.Client do
   """
   def encode_params(param) when is_map(param) do
     param
-    |> Map.from_struct
-    |> Enum.filter(fn{_key, value} ->
-        value
-     end)
+    |> Map.from_struct()
+    |> Enum.filter(fn {_key, value} ->
+      value
+    end)
     |> Enum.into(%{})
-    |> Poison.encode
+    |> Poison.encode()
     |> ok
   end
 
   def ok({:ok, value}), do: value
-
 end

@@ -8,3 +8,4 @@ mix.lock
 /.idea
 *.iml
 config/config.exs
+.env

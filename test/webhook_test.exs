@@ -7,7 +7,6 @@ defmodule ConektaTest.WebHookTest do
   alias Mocks.WebHookMock
 
   describe "webhook push" do
-    
     test "should handle charge.created" do
       mock = WebHookMock.charge_created()
       {:charge_created, charge} = WebHook.received(mock)
@@ -77,13 +76,13 @@ defmodule ConektaTest.WebHookTest do
       {:subscription_canceled, subscription} = WebHook.received(mock)
       assert subscription.id == mock["data"]["object"]["id"]
     end
-    
+
     test "should handle charge.chargeback.created" do
       mock = WebHookMock.charge_chargeback_created()
       {:chargeback_created, chargeback} = WebHook.received(mock)
       assert chargeback.id == mock["data"]["object"]["id"]
     end
-    
+
     test "should handle charge.chargeback.lost" do
       mock = WebHookMock.charge_chargeback_lost()
       {:chargeback_lost, chargeback} = WebHook.received(mock)
@@ -91,9 +90,25 @@ defmodule ConektaTest.WebHookTest do
     end
 
     test "should have logs" do
-      mocks = [WebHookMock.charge_created(), WebHookMock.charge_paid(), WebHookMock.oxxo_charge_created(), WebHookMock.oxxo_charge_paid(), WebHookMock.spei_charge_created(), WebHookMock.spei_charge_paid(), WebHookMock.plan_created(), WebHookMock.customer_created(), WebHookMock.subscription_created(), WebHookMock.subscription_paid(), WebHookMock.subscription_canceled(), WebHookMock.charge_chargeback_created(), WebHookMock.charge_chargeback_lost()]
+      mocks = [
+        WebHookMock.charge_created(),
+        WebHookMock.charge_paid(),
+        WebHookMock.oxxo_charge_created(),
+        WebHookMock.oxxo_charge_paid(),
+        WebHookMock.spei_charge_created(),
+        WebHookMock.spei_charge_paid(),
+        WebHookMock.plan_created(),
+        WebHookMock.customer_created(),
+        WebHookMock.subscription_created(),
+        WebHookMock.subscription_paid(),
+        WebHookMock.subscription_canceled(),
+        WebHookMock.charge_chargeback_created(),
+        WebHookMock.charge_chargeback_lost()
+      ]
+
       Enum.map(mocks, fn mock ->
         {_, _, logs} = WebHook.received(mock, :logs)
+
         Enum.map(logs, fn log ->
           assert is_binary(log.id)
           assert is_binary(log.url)
@@ -105,5 +120,4 @@ defmodule ConektaTest.WebHookTest do
       end)
     end
   end
-
 end
