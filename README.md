@@ -101,6 +101,62 @@ customer_info: %{
 response = Conekta.Orders.create(new_order)
 ```
 
+## Payment Links
+
+### Create
+
+```elixir
+iex> Conekta.Checkouts.create_payment_link(%PaymentLink{
+  name: "a payment link", 
+  type: "PaymentLink", 
+  expires_at: 1637714928, 
+  recurrent: false, 
+  allowed_payment_methods: ["cash", "card", "bank_transfer"], 
+  monthly_installments_enabled: false, 
+  order_template: %{
+    currency: "MXN", 
+    customer_info: %{
+      name: "test paymentlink", 
+      email: "pedro+test@ventup.com.mx", 
+      phone: "8115898281"
+    }, 
+    line_items: [
+      %{
+        name: "ventup month", 
+        unit_price: 10000, 
+        quantity: 1
+      }
+    ]
+  }, 
+  needs_shipping_contact: false
+})
+
+iex> {:ok,
+ %{
+   "allowed_payment_methods" => ["card", "cash", "bank_transfer"],
+   "can_not_expire" => false,
+   "emails_sent" => 0,
+   "exclude_card_networks" => [],
+   "expires_at" => 1637714928,
+   "force_3ds_flow" => false,
+   "id" => "d8d629ef-4d34-4b59-bf24-17acdddb7553",
+   "livemode" => false,
+   "metadata" => %{},
+   "monthly_installments_enabled" => false,
+   "monthly_installments_options" => [],
+   "name" => "a payment link",
+   "needs_shipping_contact" => false,
+   "object" => "checkout",
+   "paid_payments_count" => 0,
+   "recurrent" => false,
+   "slug" => "d8d629ef4d344b59bf2417acdddb7553",
+   "sms_sent" => 0,
+   "starts_at" => 1637647200,
+   "status" => "Issued",
+   "type" => "PaymentLink",
+   "url" => "https://pay.conekta.com/link/d8d629ef4d344b59bf2417acdddb7553"
+ }}
+```
 
 ## WebHooks
 

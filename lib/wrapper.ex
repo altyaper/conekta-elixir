@@ -27,7 +27,8 @@ defmodule Conekta.Wrapper do
   end
 
   def key do
-    Application.get_env(:conekta, :private_key) || System.get_env("CONEKTA_PRIVATE_KEY")
+    Application.get_env(:conekta, :private_key) ||
+      System.get_env("CONEKTA_PRIVATE_KEY")
   end
 
   def locale do
