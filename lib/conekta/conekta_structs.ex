@@ -353,3 +353,45 @@ defmodule Conekta.PartialRefund do
   @moduledoc false
   defstruct reason: nil, amount: nil
 end
+
+defmodule Conekta.PaymentLink do
+  @moduledoc false
+  defstruct name: nil,
+            type: "PaymentLink",
+            metadata: nil,
+            monthly_installments_enabled: nil,
+            monthly_installments_options: nil,
+            needs_shipping_contact: nil,
+            payments_limit_count: nil,
+            recurrent: nil,
+            order_template: nil,
+            expires_at: nil,
+            allowed_payment_methods: nil
+end
+
+defmodule Conekta.PaymentLinkResponse do
+  @moduledoc false
+  defstruct id: nil,
+            can_not_expire: nil,
+            emails_sent: nil,
+            exclude_card_networks: nil,
+            expires_at: nil,
+            force_3ds_flow: nil,
+            allowed_payment_methods: nil,
+            livemode: nil,
+            metadata: nil,
+            monthly_installments_enabled: nil,
+            monthly_installments_options: nil,
+            name: nil,
+            needs_shipping_contact: nil,
+            object: nil,
+            paid_payments_count: nil,
+            payments_limit_count: nil,
+            recurrent: nil,
+            slug: nil,
+            sms_sent: nil,
+            starts_at: nil,
+            status: nil,
+            type: nil,
+            url: nil
+end
