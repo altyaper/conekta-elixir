@@ -64,7 +64,16 @@ defmodule Conekta.Order do
             line_items: nil,
             charges: nil,
             shipping_lines: nil,
-            shipping_contact: nil
+            shipping_contact: nil,
+            tax_lines: nil,
+            discount_lines: nil,
+            pre_authorize: nil,
+            customer_id: nil,
+            name: nil,
+            phone: nil,
+            email: nil,
+            coorporate: nil,
+            checkout: nil
 end
 
 defmodule Conekta.OrdersResponse do
