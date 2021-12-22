@@ -22,7 +22,7 @@ defmodule Conekta.Mixfile do
 
   def application do
     [
-      applications: [:dotenv, :httpoison, :logger],
+      applications: [:httpoison, :logger],
       extra_applications: [:poison]
     ]
   end
@@ -35,8 +35,7 @@ defmodule Conekta.Mixfile do
       {:httpoison, "~> 1.6"},
       {:poison, "~> 4.0"},
       {:mock, "~> 0.3.0", only: :test},
-      {:ex_doc, "~> 0.22", only: :dev, runtime: false},
-      {:dotenv, "~> 3.1.0", only: [:dev, :test]}
+      {:ex_doc, "~> 0.22", only: :dev, runtime: false}
     ]
   end
 
