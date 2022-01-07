@@ -44,7 +44,8 @@ defmodule Conekta.Customer do
             payment_sources: nil,
             corporate: nil,
             shipping_contacts: nil,
-            suscriptions: nil
+            suscriptions: nil,
+            default_payment_source_id: nil
 end
 
 defmodule Conekta.CustomersResponse do
