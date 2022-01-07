@@ -190,7 +190,7 @@ end
 
 defmodule Conekta.PaymentSource do
   @moduledoc false
-  defstruct token_id: nil, type: nil
+  defstruct token_id: nil, type: nil, address: nil
 end
 
 defmodule Conekta.CustomerPaymentSourcesResponse do
@@ -217,6 +217,23 @@ defmodule Conekta.CustomerCreatePaymentSourceResponse do
             name: nil,
             parent_id: nil,
             default: nil
+end
+
+defmodule Conekta.CustomerUpdatePaymentSourceResponse do
+  @moduledoc false
+  defstruct id: nil,
+            object: nil,
+            type: nil,
+            created_at: nil,
+            last4: nil,
+            bin: nil,
+            exp_month: nil,
+            exp_year: nil,
+            brand: nil,
+            name: nil,
+            parent_id: nil,
+            default: nil,
+            address: nil
 end
 
 defmodule Conekta.ChargebackWebhookPost do
