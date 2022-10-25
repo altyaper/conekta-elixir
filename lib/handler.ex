@@ -7,6 +7,9 @@ defmodule Conekta.Handler do
       200 ->
         content.body
 
+      402 ->
+        content.body
+
       500 ->
         ErrorHandler.raise_error(content)
 

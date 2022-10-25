@@ -43,8 +43,10 @@ defmodule Conekta.Orders do
   def create(order) when is_map(order) do
     case Client.post_request("orders", order) do
       {:ok, content} ->
-        body = Handler.handle_status_code(content)
-        {:ok, Poison.decode!(body, as: %OrdersCreateResponse{})}
+        content
+        |> Handler.handle_status_code()
+        |> Poison.decode!()
+        |> parse_response()
     end
   end
 
@@ -107,9 +109,32 @@ defmodule Conekta.Orders do
   def create_charge(order_id, charge) do
     case Client.post_request("orders/" <> order_id <> "/charges", charge) do
       {:ok, content} ->
-        body = Handler.handle_status_code(content)
-        {:ok, Poison.decode!(body, as: %OrderCreateChargeResponse{})}
+        content
+        |> Handler.handle_status_code()
+        |> Poison.decode!()
+        |> parse_response()
     end
+  end
+
+  defp parse_response(%{"data" => %{"object" => "order"}  = data}) do
+    data
+    |> Poison.encode!()
+    |> Poison.decode!(as: %OrdersCreateResponse{})
+    |> then(&{:error, &1})
+  end
+
+  defp parse_response(%{"charges" => _charges} = data) do
+    data
+    |> Poison.encode!()
+    |> Poison.decode!(as: %OrdersCreateResponse{})
+    |> then(&{:ok, &1})
+  end
+
+  defp parse_response(data) do
+    data
+    |> Poison.encode!()
+    |> Poison.decode!(as: %OrderCreateChargeResponse{})
+    |> then(&{:ok, &1})
   end
 
   def refund(order_id, refund) do
