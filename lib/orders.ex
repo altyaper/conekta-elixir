@@ -7,6 +7,7 @@ defmodule Conekta.Orders do
     Endpoint: https://api.conekta.io/orders
   """
   alias Conekta.Client
+  alias Conekta.ErrorResponse
   alias Conekta.Handler
   alias Conekta.OrderChargesResponse
   alias Conekta.OrderCreateChargeResponse
@@ -116,7 +117,7 @@ defmodule Conekta.Orders do
     end
   end
 
-  defp parse_response(%{"data" => %{"object" => "order"}  = data}) do
+  defp parse_response(%{"data" => %{"object" => "order"} = data}) do
     data
     |> Poison.encode!()
     |> Poison.decode!(as: %OrdersCreateResponse{})
@@ -130,11 +131,29 @@ defmodule Conekta.Orders do
     |> then(&{:ok, &1})
   end
 
-  defp parse_response(data) do
+  defp parse_response(%{"object" => "charge"} = data) do
     data
     |> Poison.encode!()
     |> Poison.decode!(as: %OrderCreateChargeResponse{})
     |> then(&{:ok, &1})
+  end
+
+  defp parse_response(%{"data" => %{"object" => "charge"} = data}) do
+    data
+    |> Poison.encode!()
+    |> Poison.decode!(as: %OrderCreateChargeResponse{})
+    |> then(&{:ok, &1})
+  end
+
+  defp parse_response(%{"object" => "error"} = data) do
+    data
+    |> Poison.encode!()
+    |> Poison.decode!(as: %ErrorResponse{})
+    |> then(&{:ok, &1})
+  end
+
+  defp parse_response(data) do
+    {:ok, data}
   end
 
   def refund(order_id, refund) do

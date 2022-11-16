@@ -358,7 +358,19 @@ end
 
 defmodule Conekta.OrderCreateChargeResponse do
   @moduledoc false
-  defstruct amount: nil
+  defstruct amount: nil,
+            created_at: nil,
+            currency: nil,
+            customer_id: nil,
+            description: nil,
+            fee: nil,
+            id: nil,
+            livemode: nil,
+            object: nil,
+            order_id: nil,
+            paid_at: nil,
+            payment_method: nil,
+            status: nil
 end
 
 defmodule Conekta.WebHookLogs do
