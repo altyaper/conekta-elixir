@@ -112,6 +112,7 @@ iex> Conekta.Checkouts.create_payment_link(%PaymentLink{
   expires_at: 1637714928, 
   recurrent: false, 
   allowed_payment_methods: ["cash", "card", "bank_transfer"], 
+  success_url: "ventup.com.mx/myaccount/billing?charge_status=paid",
   monthly_installments_enabled: false, 
   order_template: %{
     currency: "MXN", 

@@ -405,7 +405,8 @@ defmodule Conekta.PaymentLink do
             recurrent: nil,
             order_template: nil,
             expires_at: nil,
-            allowed_payment_methods: nil
+            allowed_payment_methods: nil,
+            success_url: nil
 end
 
 defmodule Conekta.PaymentLinkResponse do
