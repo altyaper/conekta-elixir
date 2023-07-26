@@ -35,7 +35,7 @@ end
 
 defmodule Conekta.OrdersResponse do
     @moduledoc false
-    defstruct has_more: nil, total: nil, object: nil, data: nil
+    defstruct has_more: nil, total: nil, object: nil, data: nil, is_refundable: nil
 end
 
 defmodule Conekta.OrdersCreateResponse do
@@ -45,12 +45,12 @@ end
 
 defmodule Conekta.OrdersFindResponse do
     @moduledoc false
-    defstruct livemode: nil, amount: nil, currency: nil, payment_status: nil, amount_refunded: nil, customer_info: nil, object: nil, id: nil, metadata: nil, created_at: nil, updated_at: nil, changes: nil
+    defstruct livemode: nil, amount: nil, currency: nil, payment_status: nil, amount_refunded: nil, customer_info: nil, object: nil, id: nil, metadata: nil, created_at: nil, updated_at: nil, changes: nil, is_refundable: nil
 end
 
 defmodule Conekta.OrdersUpdateReponse do
     @moduledoc false
-    defstruct id: nil
+    defstruct id: nil, is_refundable: nil
 end
 
 defmodule Conekta.PlansResponse do
