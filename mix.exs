@@ -7,7 +7,7 @@ defmodule Conekta.Mixfile do
 
   def project do
     [app: :conekta,
-     version: "1.1.1",
+     version: "1.1.2",
      description: @description,
      name: "Conekta",
      elixir: "~> 1.10",
