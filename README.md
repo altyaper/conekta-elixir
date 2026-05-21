@@ -34,6 +34,16 @@ config :conekta,
   apiversion: "2.0.0"
 ```
 
+You can also set configuration per-process for multi-tenant use:
+
+```elixir
+Conekta.Wrapper.put_config(%{
+  privatekey: "key_for_this_tenant",
+  locale: "es",
+  apiversion: "2.0.0"
+})
+```
+
 ## Usage
 
 ### Customers
@@ -54,62 +64,35 @@ new_customer = %Conekta.Customer{
 }
 {:ok, customer} = Conekta.Customers.create(new_customer)
 
-# Find a customer by ID
+# Find, update, delete
 {:ok, customer} = Conekta.Customers.find("cus_abc123")
-
-# Update a customer
 {:ok, updated} = Conekta.Customers.update("cus_abc123", %Conekta.Customer{name: "New Name"})
-
-# Delete a customer
 {:ok, deleted} = Conekta.Customers.delete("cus_abc123")
 ```
 
 #### Payment Sources
 
 ```elixir
-# List payment sources
 {:ok, sources} = Conekta.Customers.payment_sources("cus_abc123")
-
-# Add a payment source
 {:ok, source} = Conekta.Customers.create_payment_source("cus_abc123", %{
   token_id: "tok_test_visa_4242",
   type: "card"
 })
-
-# Delete a payment source
 {:ok, deleted} = Conekta.Customers.delete_payment_source("cus_abc123", "src_xyz")
 ```
 
 #### Shipping Contacts
 
 ```elixir
-# List shipping contacts
 {:ok, contacts} = Conekta.Customers.shipping_contacts("cus_abc123")
-
-# Create a shipping contact
 {:ok, contact} = Conekta.Customers.create_shipping_contact("cus_abc123", %{
   phone: "1234567890",
-  address: %{
-    street1: "123 Main St",
-    postal_code: "00000",
-    country: "MX"
-  }
+  address: %{street1: "123 Main St", postal_code: "00000", country: "MX"}
 })
-
-# Update a shipping contact
 {:ok, updated} = Conekta.Customers.update_shipping_contact("cus_abc123", "ship_xyz", %{
   phone: "0987654321"
 })
-
-# Delete a shipping contact
 {:ok, deleted} = Conekta.Customers.delete_shipping_contact("cus_abc123", "ship_xyz")
-```
-
-#### Subscriptions
-
-```elixir
-# Get a customer's subscription
-{:ok, subscription} = Conekta.Customers.subscription("cus_abc123")
 ```
 
 ### Orders
@@ -121,40 +104,24 @@ new_customer = %Conekta.Customer{
 # Create an order
 new_order = %Conekta.Order{
   currency: "MXN",
-  customer_info: %{
-    customer_id: "cus_abc123"
-  },
-  line_items: [%{
-    name: "Product 1",
-    unit_price: 35_000,
-    quantity: 1
-  }],
-  charges: [%{
-    payment_method: %{
-      type: "default"
-    }
-  }]
+  customer_info: %{customer_id: "cus_abc123"},
+  line_items: [%{name: "Product 1", unit_price: 35_000, quantity: 1}],
+  charges: [%{payment_method: %{type: "default"}}]
 }
 {:ok, order} = Conekta.Orders.create(new_order)
 
-# Find an order by ID
+# Find, update
 {:ok, order} = Conekta.Orders.find("ord_abc123")
-
-# Update an order
 {:ok, updated} = Conekta.Orders.update("ord_abc123", %Conekta.Order{currency: "USD"})
 
-# Get charges for an order
+# Charges
 {:ok, charges} = Conekta.Orders.charges("ord_abc123")
-
-# Create a charge for an order
 {:ok, charge} = Conekta.Orders.create_charge("ord_abc123", %{
   payment_method: %{type: "default"}
 })
 
-# Refund an order
+# Refunds
 {:ok, refund} = Conekta.Orders.refund("ord_abc123", %{reason: "requested_by_client"})
-
-# Partial refund
 {:ok, refund} = Conekta.Orders.partial_refund("ord_abc123", %{
   reason: "requested_by_client",
   amount: 10_000
@@ -164,22 +131,132 @@ new_order = %Conekta.Order{
 ### Plans
 
 ```elixir
-# List all plans
+# Create a plan
+plan = %Conekta.Plan{
+  name: "Monthly Plan",
+  amount: 5000,
+  currency: "MXN",
+  interval: "month",
+  frequency: 1
+}
+{:ok, created} = Conekta.Plans.create(plan)
+
+# List, find, update, delete
 {:ok, plans} = Conekta.Plans.plans()
-
-# Find a plan by ID
 {:ok, plan} = Conekta.Plans.find("plan_abc123")
-
-# Update a plan
-{:ok, updated} = Conekta.Plans.update("plan_abc123", %{name: "Updated Plan"})
-
-# Delete a plan
+{:ok, updated} = Conekta.Plans.update("plan_abc123", %Conekta.Plan{name: "Updated Plan"})
 {:ok, deleted} = Conekta.Plans.delete("plan_abc123")
+```
+
+### Subscriptions
+
+Manage the full subscription lifecycle on a customer:
+
+```elixir
+# Create a subscription
+{:ok, sub} = Conekta.Subscriptions.create("cus_abc123", %Conekta.SubscriptionRequest{
+  plan_id: "plan_abc123"
+})
+
+# Get, update
+{:ok, sub} = Conekta.Subscriptions.get("cus_abc123")
+{:ok, sub} = Conekta.Subscriptions.update("cus_abc123", %Conekta.SubscriptionRequest{
+  plan_id: "plan_new"
+})
+
+# Pause, resume, cancel
+{:ok, sub} = Conekta.Subscriptions.pause("cus_abc123")
+{:ok, sub} = Conekta.Subscriptions.resume("cus_abc123")
+{:ok, sub} = Conekta.Subscriptions.cancel("cus_abc123")
+```
+
+### Payment Links
+
+Generate payment URLs to send to customers:
+
+```elixir
+# Create a payment link
+checkout = %Conekta.Checkout{
+  name: "Product Payment",
+  type: "PaymentLink",
+  allowed_payment_methods: ["card", "cash"],
+  recurrent: false,
+  order_template: %Conekta.CheckoutOrderTemplate{
+    currency: "MXN",
+    line_items: [%{name: "T-Shirt", unit_price: 25_000, quantity: 1}]
+  }
+}
+{:ok, link} = Conekta.PaymentLinks.create(checkout)
+IO.puts(link.url) # => "https://pay.conekta.com/checkout/..."
+
+# List, find, cancel
+{:ok, links} = Conekta.PaymentLinks.list()
+{:ok, link} = Conekta.PaymentLinks.find("checkout_abc123")
+{:ok, canceled} = Conekta.PaymentLinks.cancel("checkout_abc123")
+
+# Send via email or SMS
+{:ok, link} = Conekta.PaymentLinks.send_email("checkout_abc123", "customer@example.com")
+{:ok, link} = Conekta.PaymentLinks.send_sms("checkout_abc123", "+521234567890")
+```
+
+### Charges
+
+List and update charges across all orders:
+
+```elixir
+{:ok, charges} = Conekta.Charges.list()
+{:ok, charge} = Conekta.Charges.find("chr_abc123")
+{:ok, updated} = Conekta.Charges.update("chr_abc123", %Conekta.ChargeUpdateRequest{
+  reference_id: "my_ref_123"
+})
+```
+
+### Tokens
+
+Tokenize card data for secure payment processing:
+
+```elixir
+token = %Conekta.Token{
+  card: %Conekta.TokenCard{
+    number: "4242424242424242",
+    name: "John Doe",
+    exp_month: "12",
+    exp_year: "25",
+    cvc: "123"
+  }
+}
+{:ok, result} = Conekta.Tokens.create(token)
+IO.puts(result.id) # => "tok_..."
 ```
 
 ### Webhooks
 
-Parse incoming webhook payloads into typed structs:
+#### Managing Webhook Endpoints
+
+Register, update, and test your webhook URLs:
+
+```elixir
+# Register a webhook endpoint
+{:ok, wh} = Conekta.Webhooks.create(%Conekta.WebhookRequest{
+  url: "https://myapp.com/api/webhooks/conekta",
+  subscribed_events: ["charge.paid", "order.created"]
+})
+
+# List, find, update, delete
+{:ok, webhooks} = Conekta.Webhooks.list()
+{:ok, wh} = Conekta.Webhooks.find("wh_abc123")
+{:ok, wh} = Conekta.Webhooks.update("wh_abc123", %Conekta.WebhookUpdateRequest{
+  url: "https://myapp.com/api/v2/webhooks"
+})
+{:ok, deleted} = Conekta.Webhooks.delete("wh_abc123")
+
+# Send a test ping
+{:ok, wh} = Conekta.Webhooks.test("wh_abc123")
+```
+
+#### Parsing Incoming Webhooks
+
+Handle webhook payloads in your controller:
 
 ```elixir
 case Conekta.WebHook.received(params) do
@@ -194,18 +271,42 @@ case Conekta.WebHook.received(params) do
   {:chargeback_lost, cb} -> # handle lost chargeback
   {:error, message} -> # handle unknown event
 end
+
+# Include webhook logs
+{:charge_paid, charge, logs} = Conekta.WebHook.received(params, :logs)
 ```
 
-To include webhook logs, pass the `:logs` option:
+### Events
+
+Retrieve and resend webhook events:
 
 ```elixir
-{:charge_paid, charge, logs} = Conekta.WebHook.received(params, :logs)
+{:ok, events} = Conekta.Events.list()
+{:ok, event} = Conekta.Events.find("evt_abc123")
+{:ok, resent} = Conekta.Events.resend("evt_abc123", "webhook_log_id")
+```
+
+### Balances
+
+Check your account balance:
+
+```elixir
+{:ok, balance} = Conekta.Balances.get()
 ```
 
 ## Testing
 
+Run unit tests:
+
 ```bash
 mix test
+```
+
+Run integration tests against Conekta's sandbox (requires `CONEKTA_PRIVATE_KEY`):
+
+```bash
+export CONEKTA_PRIVATE_KEY=your_sandbox_key
+mix test test/integration --include integration
 ```
 
 ## Contributing

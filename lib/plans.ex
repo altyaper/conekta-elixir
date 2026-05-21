@@ -10,6 +10,7 @@ defmodule Conekta.Plans do
     alias Conekta.Handler
     alias Conekta.Client
     alias Conekta.PlansResponse
+    alias Conekta.PlanCreateResponse
     alias Conekta.PlanFindResponse
     alias Conekta.PlanUpdateResponse
     alias Conekta.PlanDeleteResponse
@@ -29,6 +30,23 @@ defmodule Conekta.Plans do
                 body = Handler.handle_status_code(content)
                 {:ok, Poison.decode!(body, as: %PlansResponse{})}
       end
+    end
+
+    @doc """
+    Create a new plan by passing a %Conekta.Plan{} struct
+    [Conekta Documentation](https://developers.conekta.com/api?#create-plan)
+
+    **Method**: `POST`
+
+        Conekta.Plans.create(%Conekta.Plan{})
+        # => { :ok, %Conekta.PlanCreateResponse{}}
+    """
+    def create(plan) do
+        case Client.post_request("plans", plan) do
+            {:ok, content} ->
+                body = Handler.handle_status_code(content)
+                {:ok, Poison.decode!(body, as: %PlanCreateResponse{})}
+        end
     end
 
     @doc """

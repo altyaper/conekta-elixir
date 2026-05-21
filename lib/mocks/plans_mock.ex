@@ -2,9 +2,25 @@ defmodule Mocks.PlansMock do
     @moduledoc false
 
     def get_plans_mock, do: {:ok, successful_plans_response()}
+    def get_create_mock, do: {:ok, successful_create_plan_response()}
     def get_find_mock, do: {:ok, successful_find_plan_response()}
     def get_update_mock, do: {:ok, successful_update_plan_response()}
     def get_delete_mock, do: {:ok, successful_delete_plan_response()}
+
+    defp successful_create_plan_response do
+      %HTTPoison.Response{body: "{\"id\":\"plan_3\",\"livemode\":false,\"created_at\":1495406600,\"name\":\"Monthly Plan\",\"amount\":5000,\"currency\":\"MXN\",\"interval\":\"month\",\"frequency\":1,\"trial_period_days\":15,\"expiry_count\":12,\"object\":\"plan\"}",
+      headers: [{"Date", "Mon, 22 May 2017 04:38:22 GMT"},
+       {"Content-Type", "application/json; charset=utf-8"},
+       {"Content-Length", "200"}, {"Connection", "keep-alive"},
+       {"Server", "Apache"},
+       {"Cache-Control", "max-age=0, private, must-revalidate"},
+       {"Conekta-Media-Type", "conekta-v2.0.0; format=json"},
+       {"Strict-Transport-Security", "max-age=31536000; includeSubDomains"},
+       {"X-Content-Type-Options", "nosniff"}, {"X-Frame-Options", "SAMEORIGIN"},
+       {"X-Request-Id", "abc12345-6789-0abc-def0-123456789abc"},
+       {"X-Runtime", "0.050000"}, {"X-XSS-Protection", "1; mode=block"},
+       {"Vary", "Accept-Encoding"}], status_code: 200}
+    end
 
     defp successful_delete_plan_response do
       %HTTPoison.Response{body: "{\"id\":\"plan_1\",\"livemode\":false,\"created_at\":1495403266,\"name\":\"Plan 3 Meses\",\"amount\":4000,\"currency\":\"MXN\",\"interval\":\"month\",\"frequency\":3,\"object\":\"plan\",\"deleted\":true}",
