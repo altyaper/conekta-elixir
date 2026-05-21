@@ -11,13 +11,13 @@ defmodule Mocks.ChargesMock do
           id: "chr_1",
           object: "charge",
           status: "paid",
-          amount: 35000,
+          amount: 35_000,
           currency: "MXN",
           order_id: "ord_1",
           customer_id: "cus_1",
           livemode: false,
-          created_at: 1495406544,
-          paid_at: 1495406550,
+          created_at: 1_495_406_544,
+          paid_at: 1_495_406_550,
           reference_id: "ref_123"
         }),
         headers: [
@@ -37,7 +37,7 @@ defmodule Mocks.ChargesMock do
             id: "chr_1",
             object: "charge",
             status: "paid",
-            amount: 35000,
+            amount: 35_000,
             currency: "MXN"
           }]
         }),

@@ -12,7 +12,7 @@ defmodule Mocks.EventsMock do
           object: "event",
           type: "charge.paid",
           livemode: false,
-          created_at: 1495406544,
+          created_at: 1_495_406_544,
           data: %{object: %{id: "chr_1"}},
           webhook_status: "successful",
           webhook_logs: [%{id: "whl_1", url: "https://example.com/webhook"}]
@@ -35,7 +35,7 @@ defmodule Mocks.EventsMock do
             object: "event",
             type: "charge.paid",
             livemode: false,
-            created_at: 1495406544
+            created_at: 1_495_406_544
           }]
         }),
         headers: [
@@ -52,7 +52,7 @@ defmodule Mocks.EventsMock do
           id: "whl_1",
           url: "https://example.com/webhook",
           failed_attempts: 0,
-          last_attempted_at: 1495406600,
+          last_attempted_at: 1_495_406_600,
           last_http_response_status: 200
         }),
         headers: [

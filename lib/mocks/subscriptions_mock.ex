@@ -17,10 +17,10 @@ defmodule Mocks.SubscriptionsMock do
           plan_id: "plan_1",
           card_id: "card_1",
           customer_id: "cus_1",
-          created_at: 1495406544,
-          subscription_start: 1495406544,
-          billing_cycle_start: 1495406544,
-          billing_cycle_end: 1498084944
+          created_at: 1_495_406_544,
+          subscription_start: 1_495_406_544,
+          billing_cycle_start: 1_495_406_544,
+          billing_cycle_end: 1_498_084_944
         }),
         headers: [
           {"Content-Type", "application/json; charset=utf-8"},

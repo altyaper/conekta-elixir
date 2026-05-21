@@ -15,7 +15,7 @@ defmodule ConektaTest.PaymentLinksTest do
                 recurrent: false,
                 order_template: %Conekta.CheckoutOrderTemplate{
                     currency: "MXN",
-                    line_items: [%{name: "Product", unit_price: 10000, quantity: 1}]
+                    line_items: [%{name: "Product", unit_price: 10_000, quantity: 1}]
                 }
             }
 

@@ -6,10 +6,10 @@ defmodule Mocks.BalancesMock do
     defp balance_response do
       %HTTPoison.Response{
         body: Poison.encode!(%{
-          available: [%{amount: 150000, currency: "MXN"}],
-          pending: [%{amount: 50000, currency: "MXN"}],
+          available: [%{amount: 150_000, currency: "MXN"}],
+          pending: [%{amount: 50_000, currency: "MXN"}],
           retained: [%{amount: 0, currency: "MXN"}],
-          gateway: [%{available: 150000, pending: 50000, currency: "MXN"}],
+          gateway: [%{available: 150_000, pending: 50_000, currency: "MXN"}],
           cashout_retention_amount: [%{amount: 0, currency: "MXN"}],
           conekta_retention: [%{amount: 0, currency: "MXN"}],
           retention_amount: [%{amount: 0, currency: "MXN"}],
