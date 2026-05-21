@@ -1,6 +1,6 @@
 # Conekta Elixir
 
-Elixir wrapper for the [Conekta API](https://api.conekta.io).
+Elixir wrapper for the [Conekta API](https://developers.conekta.com/reference).
 
 [HexDocs documentation](https://hexdocs.pm/conekta/api-reference.html)
 
