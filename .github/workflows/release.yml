@@ -13,6 +13,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: erlef/setup-beam@v1
+        with:
+          elixir-version: '1.16'
+          otp-version: '26'
+
+      - name: Install dependencies
+        run: mix deps.get
+
       - name: Get latest tag
         id: latest_tag
         run: |
@@ -53,3 +61,9 @@ jobs:
           gh release create ${{ steps.bump.outputs.version }} \
             --title "${{ steps.bump.outputs.version }}" \
             --generate-notes
+
+      - name: Publish to Hex.pm
+        if: steps.check_tag.outputs.exists == 'false'
+        env:
+          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
+        run: mix hex.publish --yes
