@@ -7,7 +7,7 @@ defmodule Conekta.Mixfile do
 
   def project do
     [app: :conekta,
-     version: "1.1.2",
+     version: "1.2.0",
      description: @description,
      name: "Conekta",
      elixir: "~> 1.10",
@@ -15,7 +15,7 @@ defmodule Conekta.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps(),
-     source_url: "https://github.com/echavezNS/conekta-elixir.git"]
+     source_url: "https://github.com/altyaper/conekta-elixir.git"]
   end
 
   def application do
@@ -33,7 +33,7 @@ defmodule Conekta.Mixfile do
   defp package do
     [ maintainers: ["Jorge Chavez"],
       licenses: ["MIT"],
-      links: %{"Github" => "https://github.com/echavezNS/conekta-elixir.git"} ]
+      links: %{"Github" => "https://github.com/altyaper/conekta-elixir.git"} ]
   end
 
 end

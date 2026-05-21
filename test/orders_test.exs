@@ -66,7 +66,7 @@ defmodule ConektaTest.OrdersTest do
             charges: [%{
                 payment_method: %{
                     type: "oxxo_cash",
-                    expires_at: 1599661683
+                    expires_at: 1_599_661_683
                 }
             }]
         }
@@ -99,7 +99,7 @@ defmodule ConektaTest.OrdersTest do
           charges: [%{
               payment_method: %{
                   type: "spei",
-                  expires_at: 1600886061
+                  expires_at: 1_600_886_061
               }
           }]
       }

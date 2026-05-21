@@ -30,9 +30,19 @@ defmodule Conekta.Client do
         "{\"name\":\"Jorge Chavez\"}"
 
   """
-  def encode_params(param) when is_map(param) do
+  def encode_params(%{__struct__: _} = param) do
     param
     |> Map.from_struct
+    |> Enum.filter(fn{_key, value} ->
+        value
+     end)
+    |> Enum.into(%{})
+    |> Poison.encode
+    |> ok
+  end
+
+  def encode_params(param) when is_map(param) do
+    param
     |> Enum.filter(fn{_key, value} ->
         value
      end)

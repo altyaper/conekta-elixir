@@ -8,6 +8,27 @@ defmodule ConektaTest.PlansTest do
 
     describe "Plans" do
 
+        test "should create a plan" do
+
+            plan = %Conekta.Plan{
+                name: "Monthly Plan",
+                amount: 5000,
+                currency: "MXN",
+                interval: "month",
+                frequency: 1,
+                trial_period_days: 15,
+                expiry_count: 12
+            }
+
+            expected_mock = Mocks.PlansMock.get_create_mock()
+
+            with_mock Client, [post_request: fn(_, _) -> expected_mock end] do
+                {:ok, content} = expected_mock
+                assert Poison.decode(content.body, as: %Conekta.PlanCreateResponse{}) == Conekta.Plans.create(plan)
+            end
+
+        end
+
         test "should get all plans" do
 
             expected_mock = Mocks.PlansMock.get_plans_mock()
