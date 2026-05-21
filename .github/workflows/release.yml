@@ -28,7 +28,17 @@ jobs:
           new_version="v${major}.${minor}.$((patch + 1))"
           echo "version=$new_version" >> "$GITHUB_OUTPUT"
 
+      - name: Check if tag exists
+        id: check_tag
+        run: |
+          if git rev-parse "${{ steps.bump.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Create tag
+        if: steps.check_tag.outputs.exists == 'false'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
@@ -36,6 +46,7 @@ jobs:
           git push origin ${{ steps.bump.outputs.version }}
 
       - name: Create GitHub Release
+        if: steps.check_tag.outputs.exists == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
