@@ -17,8 +17,8 @@ defmodule ConektaTest.ClientTest do
             type: "default"
         }]}
 
-        expected = "{\"payment_sources\":[{\"type\":\"default\",\"token\":\"token_2039989wei9229\"}],\"name\":\"Jorge\"}"
-        assert expected == Conekta.Client.encode_params(customer)
+        result = Conekta.Client.encode_params(customer)
+        assert {:ok, %{"name" => "Jorge", "payment_sources" => [%{"token" => "token_2039989wei9229", "type" => "default"}]}} == Poison.decode(result)
     end
 
     test "should encode customer struct" do

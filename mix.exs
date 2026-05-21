@@ -15,7 +15,7 @@ defmodule Conekta.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps(),
-     source_url: "https://github.com/echavezNS/conekta-elixir.git"]
+     source_url: "https://github.com/altyaper/conekta-elixir.git"]
   end
 
   def application do
