@@ -11,7 +11,7 @@ Add `conekta` to your `mix.exs` dependencies:
 ```elixir
 defp deps do
   [
-    {:conekta, "~> 1.1"}
+    {:conekta, "~> 1.2"}
   ]
 end
 ```
